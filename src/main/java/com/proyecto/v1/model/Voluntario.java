@@ -3,17 +3,19 @@ package com.proyecto.v1.model;
 import com.proyecto.v1.model.util.Rol;
 
 public class Voluntario extends Usuario {
+    private String apellido;
     private String habilidades;
     private String experiencia;
     private String disponibilidad;
     private String areas_interes;
 
     public Voluntario(Long id, String nombre, String apellido, String correo, String telefono, String clave, Rol rol, String habilidades, String experiencia, String disponibilidad, String areas_interes) {
-        super(id, nombre, apellido, correo, telefono, clave, rol);
+        super(id, nombre, correo, telefono, clave, rol);
         this.habilidades = habilidades;
         this.experiencia = experiencia;
         this.disponibilidad = disponibilidad;
         this.areas_interes = areas_interes;
+        this.apellido = apellido;
     }
 
     public String getHabilidades() {
@@ -46,5 +48,13 @@ public class Voluntario extends Usuario {
 
     public void setAreas_interes(String areas_interes) {
         this.areas_interes = areas_interes;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 }
