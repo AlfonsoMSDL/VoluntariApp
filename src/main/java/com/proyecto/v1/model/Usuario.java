@@ -9,14 +9,16 @@ public class Usuario {
     private String telefono;
     private String clave;
     private Rol rol;
+    private String nombreUsuario;
 
-    public Usuario(Long id, String nombre, String correo, String telefono, String clave, Rol rol) {
+    public Usuario(Long id, String nombre, String correo, String telefono, String clave, Rol rol, String nombreUsuario) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
         this.clave = clave;
         this.rol = rol;
+        this.nombreUsuario = nombreUsuario;
     }
 
     public Long getId() {
@@ -67,4 +69,11 @@ public class Usuario {
         this.rol = rol;
     }
 
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
 }
