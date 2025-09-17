@@ -15,20 +15,20 @@
 
         <form>
             <div class="form-group">
-                <label for="usuario">Usuario</label>
-                <input type="text" id="usuario" name="usuario" placeholder="Ingresa tu usuario" required>
+                <label for="correo">Email</label>
+                <input type="text" id="email" name="email" placeholder="Ingresa tu email" required>
             </div>
 
             <div class="form-group">
-                <label for="clave">Clave</label>
-                <input type="password" id="clave" name="clave" placeholder="Ingresa tu contraseña" minlength="5" required>
+                <label for="contraseña">Contraseña</label>
+                <input type="password" id="contraseña" name="contraseña" placeholder="Ingresa tu contraseña" minlength="5" required>
             </div>
 
             <button type="submit" class="login-btn">LOGIN</button>
         </form>
 
         <div class="link-registro">
-            <p>¿No tienes una cuenta? <a href="registrar.html">Regístrate aquí</a></p>
+            <p>¿No tienes una cuenta? <a href="registrar.jsp">Regístrate aquí</a></p>
         </div>
 
     </div>

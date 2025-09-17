@@ -13,15 +13,51 @@
     <div class="form-section">
         <h1>Crear Cuenta</h1>
 
-        <form>
-            <div class="form-group">
-                <label for="nombre">Nombre Completo</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre completo" required>
+        <label class="tipo-usuario">¿Qué tipo de usuario eres?</label>
+         <div class="selector-rol">
+              <label>
+                <input type="radio" name="rol" value="voluntario" checked>
+                Voluntario
+              </label>
+              <label>
+                <input type="radio" name="rol" value="organizacion">
+                Organización
+              </label>
+         </div>
+
+        <form id="formulario-registro" class="campos-form show">
+
+            <div id="seccion-voluntario">
+
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="apellido">Apellido</label>
+                    <input type="text" id="apellido" name="apellido" placeholder="Ingresa tu apellido" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Ingresa tu correo electrónico" required>
+                </div>
+
             </div>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Ingresa tu correo electrónico" required>
+            <div id="seccion-organizacion" class="hidden">
+
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ingresa el nombre de tu organización" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Ingresa el correo de tu organización" required>
+                </div>
+
             </div>
 
             <div class="form-group">
@@ -43,7 +79,7 @@
         </form>
 
         <div class="link-registro">
-            <p>¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a></p>
+            <p>¿Ya tienes una cuenta? <a href="login.jsp">Inicia sesión aquí</a></p>
         </div>
     </div>
 
