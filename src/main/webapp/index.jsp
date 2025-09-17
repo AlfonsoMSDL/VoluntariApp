@@ -59,7 +59,7 @@
                     </p>
                     <div class="text-center">
                         <a href="pages/registrar.jsp" class="btn btn-hero btn-hero-primary btn-lg">Registrate Ahora</a>
-                        <a href="#" class="btn btn-hero btn-hero-primary btn-lg">Iniciar sesion</a>
+                        <a href="pages/login.jsp" class="btn btn-hero btn-hero-primary btn-lg">Iniciar sesion</a>
                     </div>
                 </div>
             </div>
