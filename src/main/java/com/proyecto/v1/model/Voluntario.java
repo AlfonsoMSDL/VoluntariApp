@@ -18,6 +18,11 @@ public class Voluntario extends Usuario {
         this.apellido = apellido;
     }
 
+    public Voluntario(String nombre, String apellido, String nombreUsuario, String correo, String clave) {
+        super(nombre,nombreUsuario,correo,clave);
+        this.apellido = apellido;
+    }
+
     public String getHabilidades() {
         return habilidades;
     }

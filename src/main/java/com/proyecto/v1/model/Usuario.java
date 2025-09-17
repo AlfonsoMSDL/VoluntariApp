@@ -21,6 +21,14 @@ public class Usuario {
         this.nombreUsuario = nombreUsuario;
     }
 
+    public Usuario(String nombre, String nombreUsuario, String correo, String clave) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.clave = clave;
+        this.nombreUsuario = nombreUsuario;
+
+    }
+
     public Long getId() {
         return id;
     }
