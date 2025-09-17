@@ -7,10 +7,11 @@ public class Organizacion extends Usuario{
     private Tipo tipo;
     private String descripcion;
 
-    public Organizacion(Long id, String nombre, String correo, String telefono, String clave, Rol rol, Tipo tipo, String descripcion) {
-        super(id, nombre, correo, telefono, clave, rol);
+    public Organizacion(Long id, String nombre, String correo, String telefono, String clave, Rol rol, Tipo tipo, String descripcion, String nombreUsuario) {
+        super(id, nombre, correo, telefono, clave, rol, nombreUsuario);
         this.tipo = tipo;
         this.descripcion = descripcion;
+
     }
 
     public Tipo getTipo() {
