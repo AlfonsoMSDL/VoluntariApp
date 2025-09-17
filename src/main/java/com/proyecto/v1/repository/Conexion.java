@@ -3,18 +3,17 @@ package com.proyecto.v1.repository;
 import java.sql.*;
 
 public class Conexion {
-    private static final String url= "jdbc:postgresql://localhost:5432/nombreBD";
+    private static final String url= "jdbc:postgresql://localhost:5432/voluntariAppBD";
     private static final String user= "postgres";
-    private static final String password = "postgres";
+    private static final String password = "1234";
 
-    public static Connection getConnection(){
+    public static Connection getConnection() throws SQLException {
         try {
-            return  DriverManager.getConnection(url,user,password);
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("No se encontró el driver de PostgreSQL", e);
         }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-        return null;
+        return  DriverManager.getConnection(url,user,password);
     }
 
     public static void close(Connection cn) throws SQLException {
