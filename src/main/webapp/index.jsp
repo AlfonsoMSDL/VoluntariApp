@@ -18,14 +18,14 @@
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#inicio">
-                <img src="assets/images/logo.png" alt="SGVC Logo" />
-                <span>SGVC</span>
+                <img src="assets/images/Logo.png" alt="VoluntariApp Logo" />
+                <span>VoluntariApp</span>
             </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
@@ -58,8 +58,8 @@
                         Facilitamos la conexión entre quienes quieren ayudar y quienes necesitan apoyo.
                     </p>
                     <div class="text-center">
-                        <a href="#" class="btn btn-hero btn-hero-primary btn-lg">Registrate Ahora</a>
-                        <a href="#" class="btn btn-hero btn-hero-secondary btn-lg">Ingresa como Voluntario</a>
+                        <a href="pages/registrar.jsp" class="btn btn-hero btn-hero-primary btn-lg">Registrate Ahora</a>
+                        <a href="#" class="btn btn-hero btn-hero-primary btn-lg">Iniciar sesion</a>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="section-title">¿Por qué elegir SGVC?</h2>
+                <h2 class="section-title">¿Por qué elegir VoluntariApp?</h2>
             </div>
         </div>
         <div class="row">
@@ -266,7 +266,7 @@
             <div class="col-lg-12">
                 <h2 class="section-title">Contacto</h2>
                 <p class="section-description col-lg-6 col-lg-offset-3">
-                    ¿Tienes preguntas o quieres conocer más sobre SGVC? Estamos aquí para ayudarte a comenzar
+                    ¿Tienes preguntas o quieres conocer más sobre VoluntariApp? Estamos aquí para ayudarte a comenzar
                     tu experiencia de voluntariado.
                 </p>
             </div>
@@ -278,8 +278,8 @@
                         <i class="fa fa-envelope"></i>
                     </div>
                     <h4>Email</h4>
-                    <p>info@sgvc.org</p>
-                    <p>soporte@sgvc.org</p>
+                    <p>info@VoluntariApp.org</p>
+                    <p>soporte@VoluntariApp.org</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
@@ -309,7 +309,7 @@
                     </div>
                     <h4>Redes Sociales</h4>
                     <p>@VoluntariApp</p>
-                    <p>SGVC Voluntarios</p>
+                    <p>VoluntariApp Voluntarios</p>
                 </div>
             </div>
         </div>
