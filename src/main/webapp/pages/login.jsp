@@ -13,7 +13,7 @@
     <div class="form-section">
         <h1>Bienvenido</h1>
 
-        <form>
+        <form action="/auth" method="post">
             <div class="form-group">
                 <label for="correo">Email</label>
                 <input type="text" id="email" name="email" placeholder="Ingresa tu email" required>
