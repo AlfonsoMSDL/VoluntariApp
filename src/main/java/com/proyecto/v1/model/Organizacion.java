@@ -14,6 +14,10 @@ public class Organizacion extends Usuario{
 
     }
 
+    public Organizacion(String nombre, String nombreUsuario, String correo, String clave) {
+        super(nombre, nombreUsuario, correo, clave);
+    }
+
     public Tipo getTipo() {
         return tipo;
     }
