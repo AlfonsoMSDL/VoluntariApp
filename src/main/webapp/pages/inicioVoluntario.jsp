@@ -29,7 +29,7 @@
         </ul>
     </aside>
 
-    <!-- Contenido principal -->
+    <-- Contenido principal -->
     <main class="contenido-principal">
         <div class="caja-bienvenida">
             <h2>Bienvenid@ Voluntario 👋</h2>
