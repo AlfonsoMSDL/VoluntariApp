@@ -21,7 +21,7 @@
 
             <div class="form-group">
                 <label for="contraseña">Contraseña</label>
-                <input type="password" id="contraseña" name="contraseña" placeholder="Ingresa tu contraseña" minlength="5" required>
+                <input type="password" id="contraseña" name="clave" placeholder="Ingresa tu contraseña" minlength="5" required>
             </div>
 
             <button type="submit" class="login-btn">LOGIN</button>
