@@ -23,6 +23,11 @@ public class Voluntario extends Usuario {
         this.apellido = apellido;
     }
 
+    public Voluntario(Long idVoluntario, String nombre, String apellido, String correo, String clave, String nombreUsuario) {
+        super(idVoluntario,nombre,correo,clave,nombreUsuario);
+        this.apellido = apellido;
+    }
+
     public String getHabilidades() {
         return habilidades;
     }
