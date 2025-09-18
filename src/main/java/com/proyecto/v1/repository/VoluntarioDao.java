@@ -58,7 +58,7 @@ public class VoluntarioDao {
                 String nombre =  rs.getString("nombre");
                 String apellido =  rs.getString("apellido");
                 String correo =  rs.getString("correo");
-                String clave =  rs.getString("clave");
+                String clave =  rs.getString("contrasena");
                 String nombreUsuario =  rs.getString("nombre_usuario");
 
                 voluntario = new Voluntario(idVoluntario,nombre,apellido,correo,clave,nombreUsuario);

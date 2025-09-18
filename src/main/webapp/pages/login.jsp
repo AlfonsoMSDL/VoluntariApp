@@ -13,7 +13,7 @@
     <div class="form-section">
         <h1>Bienvenido</h1>
 
-        <form action="/auth" method="post">
+
             <div class="form-group">
                 <label for="correo">Email</label>
                 <input type="text" id="email" name="email" placeholder="Ingresa tu email" required>
@@ -21,11 +21,11 @@
 
             <div class="form-group">
                 <label for="contraseña">Contraseña</label>
-                <input type="password" id="contraseña" name="clave" placeholder="Ingresa tu contraseña" minlength="5" required>
+                <input type="password" id="contrasena" name="clave" placeholder="Ingresa tu contraseña" minlength="5" required>
             </div>
 
             <button type="submit" class="login-btn">LOGIN</button>
-        </form>
+
 
         <div class="link-registro">
             <p>¿No tienes una cuenta? <a href="registrar.jsp">Regístrate aquí</a></p>

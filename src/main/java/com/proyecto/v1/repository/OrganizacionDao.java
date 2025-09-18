@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrganizacionDao {
@@ -39,7 +40,7 @@ public class OrganizacionDao {
         Connection conn = null;
         PreparedStatement stmt = null;
 
-        List<Organizacion> organizaciones = null;
+        List<Organizacion> organizaciones =  new ArrayList<>();
         Organizacion organizacion = null;
 
         try {
@@ -50,9 +51,9 @@ public class OrganizacionDao {
             while(rs.next()){
                 Long idORganizacion = rs.getLong("id_organizacion");
                 String nombre = rs.getString("nombre");
-                String nombreUsuario = rs.getString("nombreUsuario");
+                String nombreUsuario = rs.getString("nombre_usuario");
                 String correo = rs.getString("correo");
-                String clave = rs.getString("clave");
+                String clave = rs.getString("contrasena");
 
                 organizacion = new Organizacion(idORganizacion,nombre,nombreUsuario,correo,clave);
 

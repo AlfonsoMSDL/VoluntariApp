@@ -29,7 +29,7 @@ public class VoluntarioController extends HttpServlet {
                 String clave = req.getParameter("clave");
                 String nombreUsuario = req.getParameter("nombreUsuario");
 
-                Voluntario resultado = voluntarioService.save(nombre, apellido, correo, clave, nombreUsuario);
+                Voluntario resultado = voluntarioService.save(nombre, apellido,nombreUsuario, correo, clave);
 
                 if(resultado != null){ // Si se guardo
                     //req.setAttribute("resultado", resultado);

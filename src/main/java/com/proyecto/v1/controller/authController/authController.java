@@ -24,42 +24,40 @@ public class authController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
-        Map<String,String> map = new HashMap<>();
-        String correo =  req.getParameter("email");
+
+        String correo = req.getParameter("correo"); // <-- Ahora coincide con el fetch
         String clave = req.getParameter("clave");
+
+        Map<String, String> map = new HashMap<>();
 
         List<Voluntario> voluntarios = voluntarioService.findAllVoluntarios();
         List<Organizacion> organizaciones = organizacionService.findAllOrganizaciones();
 
-        Optional<Voluntario> voluntarioOptional = voluntarios.stream().
-                filter(voluntario -> voluntario.getCorreo().equalsIgnoreCase(correo))
+        // --- Buscar voluntario ---
+        Optional<Voluntario> voluntarioOptional = voluntarios.stream()
+                .filter(voluntario -> voluntario.getCorreo().equalsIgnoreCase(correo))
                 .findFirst();
 
-        if(voluntarioOptional.isPresent()){
+        if (voluntarioOptional.isPresent()) {
             Voluntario voluntario = voluntarioOptional.get();
-            if(clave.equalsIgnoreCase(voluntario.getClave())){ //Credenciales correctas
-                map.put("status","success");
-                resp.getWriter().println(map);
-            }else{
-                map.put("status","error");
-                resp.getWriter().println(map);
-            }
+            map.put("status", clave.equalsIgnoreCase(voluntario.getClave()) ? "success" : "error");
+            resp.getWriter().println("{\"status\": \"" + map.get("status") + "\"}");
+            return; // <-- Evita que siga ejecutando el resto del método
         }
 
-        Optional<Organizacion> organizacionOptional = organizaciones.stream().
-                filter(organizacion -> organizacion.getCorreo().equalsIgnoreCase(correo))
+        // --- Buscar organización ---
+        Optional<Organizacion> organizacionOptional = organizaciones.stream()
+                .filter(organizacion -> organizacion.getCorreo().equalsIgnoreCase(correo))
                 .findFirst();
 
-        if(organizacionOptional.isPresent()){
+        if (organizacionOptional.isPresent()) {
             Organizacion organizacion = organizacionOptional.get();
-            if(clave.equalsIgnoreCase(organizacion.getClave())){ //Credenciales correctas
-                map.put("status","success");
-                resp.getWriter().println(map);
-            }else{
-                map.put("status","error");
-                resp.getWriter().println(map);
-            }
+            map.put("status", clave.equalsIgnoreCase(organizacion.getClave()) ? "success" : "error");
+            resp.getWriter().println("{\"status\": \"" + map.get("status") + "\"}");
+            return;
         }
 
+        // --- Si no se encontró ningún usuario ---
+        resp.getWriter().println("{\"status\": \"not_found\"}");
     }
 }
