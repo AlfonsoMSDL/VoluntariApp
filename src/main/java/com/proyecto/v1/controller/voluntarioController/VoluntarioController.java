@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/voluntarios")
-public class SaveVoluntarioController extends HttpServlet {
+public class VoluntarioController extends HttpServlet {
     private final VoluntarioService voluntarioService = new VoluntarioService();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

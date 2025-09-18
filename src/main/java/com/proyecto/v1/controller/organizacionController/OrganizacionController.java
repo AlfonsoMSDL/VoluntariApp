@@ -22,9 +22,9 @@ public class OrganizacionController extends HttpServlet {
         if(accion == null) accion = "default";
         switch (accion){
             case "save":
-                String nombre = req.getParameter("nombre");
+                String nombre = req.getParameter("nombreOrganizacion");
                 String nombreUsuario = req.getParameter("nombreUsuario");
-                String correo = req.getParameter("correo");
+                String correo = req.getParameter("emailOrganizacion");
                 String clave = req.getParameter("clave");
 
                 Organizacion resultado = organizacionService.save(nombre,nombreUsuario,correo,clave);
@@ -41,4 +41,6 @@ public class OrganizacionController extends HttpServlet {
                 break;
         }
     }
+
+
 }

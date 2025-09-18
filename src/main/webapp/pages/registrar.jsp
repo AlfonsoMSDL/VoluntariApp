@@ -25,7 +25,9 @@
               </label>
          </div>
 
-        <form id="formulario-registro" class="campos-form show">
+        <div id="formulario-registro" class="campos-form show">
+
+
 
             <div id="seccion-voluntario">
 
@@ -50,12 +52,12 @@
 
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Ingresa el nombre de tu organización" required>
+                    <input type="text" id="nombreOrganizacion" name="nombreOrganizacion" placeholder="Ingresa el nombre de tu organización" required>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Ingresa el correo de tu organización" required>
+                    <input type="email" id="emailOrganizacion" name="emailOrganizacion" placeholder="Ingresa el correo de tu organización" required>
                 </div>
 
             </div>
@@ -76,7 +78,7 @@
             </div>
 
             <button type="submit" class="login-btn">REGISTRARSE</button>
-        </form>
+        </div>
 
         <div class="link-registro">
             <p>¿Ya tienes una cuenta? <a href="login.jsp">Inicia sesión aquí</a></p>
