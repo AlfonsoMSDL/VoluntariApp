@@ -32,7 +32,7 @@
     <!-- Contenido principal -->
     <main class="contenido-principal">
         <div class="caja-bienvenida">
-            <h2>Bienvenida Organizacion 👋</h2>
+            <h2>Bienvenid@ Organizacion 👋</h2>
             <p>Gracias por hacer parte de esta comunidad. Aquí podrás gestionar tus proyectos, revisar notificaciones y explorar nuevas oportunidades.</p>
         </div>
 
