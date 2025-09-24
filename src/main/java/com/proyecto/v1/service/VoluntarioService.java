@@ -1,5 +1,7 @@
 package com.proyecto.v1.service;
 
+import com.proyecto.v1.dto.response.GetVoluntario;
+import com.proyecto.v1.mapper.GenericMapper;
 import com.proyecto.v1.model.Voluntario;
 import com.proyecto.v1.repository.VoluntarioDao;
 
@@ -7,13 +9,13 @@ import java.util.List;
 
 public class VoluntarioService {
     private final VoluntarioDao voluntarioDao = new VoluntarioDao();
+    private final GenericMapper<Voluntario, GetVoluntario> genericMapper = new GenericMapper();
 
-
-
-    public Voluntario save(String nombre, String apellido , String nombreUsuario, String correo, String clave) {
+    public GetVoluntario save(String nombre, String apellido , String nombreUsuario, String correo, String clave) {
 
         Voluntario nuevoVoluntario = new Voluntario(nombre,apellido,nombreUsuario,correo,clave);
-        return voluntarioDao.saveVoluntario(nuevoVoluntario);
+        Voluntario insertado = voluntarioDao.saveVoluntario(nuevoVoluntario);
+        return genericMapper.toDto(insertado, GetVoluntario.class);
     }
 
     public List<Voluntario> findAllVoluntarios(){

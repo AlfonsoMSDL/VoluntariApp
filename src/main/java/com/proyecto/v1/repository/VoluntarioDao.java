@@ -2,10 +2,7 @@ package com.proyecto.v1.repository;
 
 import com.proyecto.v1.model.Voluntario;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +18,7 @@ public class VoluntarioDao {
 
         try {
             conn = Conexion.getConnection();
-            stmt = conn.prepareStatement(INSERT);
+            stmt = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 
             stmt.setString(1, voluntario.getNombre());
             stmt.setString(2, voluntario.getApellido());
@@ -30,7 +27,13 @@ public class VoluntarioDao {
             stmt.setString(5, voluntario.getClave());
             int registrosAfectados = stmt.executeUpdate();
 
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                voluntario.setId(rs.getLong(1));
+            }
 
+
+            Conexion.close(rs);
             Conexion.close(stmt);
             Conexion.close(conn);
             return registrosAfectados != 0 ?voluntario:null;
