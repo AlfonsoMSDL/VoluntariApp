@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -14,26 +13,24 @@
         <h1>Crear Cuenta</h1>
 
         <label class="tipo-usuario">¿Qué tipo de usuario eres?</label>
-         <div class="selector-rol">
-              <label>
+        <div class="selector-rol">
+            <label>
                 <input type="radio" name="rol" value="voluntario" checked>
                 Voluntario
-              </label>
-              <label>
+            </label>
+            <label>
                 <input type="radio" name="rol" value="organizacion">
                 Organización
-              </label>
-         </div>
+            </label>
+        </div>
 
         <div id="formulario-registro" class="campos-form show">
 
-
-
+            <!-- SECCIÓN VOLUNTARIO -->
             <div id="seccion-voluntario">
-
                 <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
+                    <label for="nombreVoluntario">Nombre</label>
+                    <input type="text" id="nombreVoluntario" name="nombre" placeholder="Ingresa tu nombre" required>
                 </div>
 
                 <div class="form-group">
@@ -45,23 +42,22 @@
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="Ingresa tu correo electrónico" required>
                 </div>
-
             </div>
 
+            <!-- SECCIÓN ORGANIZACIÓN -->
             <div id="seccion-organizacion" class="hidden">
-
                 <div class="form-group">
-                    <label for="nombre">Nombre</label>
+                    <label for="nombreOrganizacion">Nombre</label>
                     <input type="text" id="nombreOrganizacion" name="nombreOrganizacion" placeholder="Ingresa el nombre de tu organización" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="emailOrganizacion">Email</label>
                     <input type="email" id="emailOrganizacion" name="emailOrganizacion" placeholder="Ingresa el correo de tu organización" required>
                 </div>
-
             </div>
 
+            <!-- CAMPOS GENERALES -->
             <div class="form-group">
                 <label for="usuario">Usuario</label>
                 <input type="text" id="usuario" name="usuario" placeholder="Elige tu nombre de usuario" required>
@@ -77,7 +73,8 @@
                 <input type="password" id="confirmar_clave" name="confirmar_clave" placeholder="Confirma tu contraseña" minlength="6" required>
             </div>
 
-            <button type="submit" class="login-btn">REGISTRARSE</button>
+            <!-- BOTÓN -->
+            <button type="button" class="login-btn">REGISTRARSE</button>
         </div>
 
         <div class="link-registro">
@@ -87,12 +84,13 @@
 
     <div class="seccion-imagen">
         <div class="image-placeholder">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M6 8c0-2.21 1.79-4 4-4s4 1.79 4 4s-1.79 4-4 4s-4-1.79-4-4m6 10.2c0-.96.5-1.86 1.2-2.46V14.5c0-.05.02-.11.02-.16c-.99-.22-2.07-.34-3.22-.34c-4.42 0-8 1.79-8 4v2h10zm10 .1v3.5c0 .6-.6 1.2-1.3 1.2h-5.5c-.6 0-1.2-.6-1.2-1.3v-3.5c0-.6.6-1.2 1.2-1.2v-2.5c0-1.4 1.4-2.5 2.8-2.5s2.8 1.1 2.8 2.5v.5h-1.3v-.5c0-.8-.7-1.3-1.5-1.3s-1.5.5-1.5 1.3V17h4.3c.6 0 1.2.6 1.2 1.3"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M6 8c0-2.21 1.79-4 4-4s4 1.79 4 4s-1.79 4-4 4s-4-1.79-4-4m6 10.2c0-.96.5-1.86 1.2-2.46V14.5c0-.05.02-.11.02-.16c-.99-.22-2.07-.34-3.22-.34c-4.42 0-8 1.79-8 4v2h10zm10 .1v3.5c0 .6-.6 1.2-1.3 1.2h-5.5c-.6 0-1.2-.6-1.2-1.3v-3.5c0-.6.6-1.2 1.2-1.2v-2.5c0-1.4 1.4-2.5 2.8-2.5s2.8 1.1 2.8 2.5v.5h-1.3v-.5c0-.8-.7-1.3-1.5-1.3s-1.5.5-1.5 1.3V17h4.3c.6 0 1.2.6 1.2 1.3"/>
+            </svg>
         </div>
     </div>
 </div>
 
 <script src="../js/registrar.js"></script>
-
 </body>
 </html>
