@@ -1,5 +1,7 @@
 package com.proyecto.v1.service;
 
+import com.proyecto.v1.dto.response.GetOrganizacion;
+import com.proyecto.v1.mapper.GenericMapper;
 import com.proyecto.v1.model.Organizacion;
 import com.proyecto.v1.repository.OrganizacionDao;
 
@@ -7,10 +9,12 @@ import java.util.List;
 
 public class OrganizacionService {
     private final OrganizacionDao organizacionDao = new OrganizacionDao();
+    private final GenericMapper<Organizacion, GetOrganizacion> genericMapper = new GenericMapper();
 
-    public Organizacion save(String nombre, String nombreUsuario, String correo, String clave){
+    public GetOrganizacion save(String nombre, String nombreUsuario, String correo, String clave){
         Organizacion nuevaOrganizacion = new Organizacion(nombre,nombreUsuario,correo,clave);
-        return organizacionDao.saveOrganizacion(nuevaOrganizacion);
+        Organizacion insertada = organizacionDao.saveOrganizacion(nuevaOrganizacion);
+        return genericMapper.toDto(insertada,GetOrganizacion.class);
     }
 
     public List<Organizacion> findAllOrganizaciones(){

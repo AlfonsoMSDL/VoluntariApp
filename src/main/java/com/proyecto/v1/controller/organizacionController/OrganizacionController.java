@@ -1,5 +1,7 @@
 package com.proyecto.v1.controller.organizacionController;
 
+import com.proyecto.v1.dto.response.GetOrganizacion;
+import com.proyecto.v1.mapper.JsonMapper;
 import com.proyecto.v1.model.Organizacion;
 import com.proyecto.v1.service.OrganizacionService;
 import jakarta.servlet.ServletException;
@@ -27,10 +29,10 @@ public class OrganizacionController extends HttpServlet {
                 String correo = req.getParameter("emailOrganizacion");
                 String clave = req.getParameter("clave");
 
-                Organizacion resultado = organizacionService.save(nombre,nombreUsuario,correo,clave);
+                GetOrganizacion resultado = organizacionService.save(nombre,nombreUsuario,correo,clave);
 
                 if(resultado != null){
-                    resp.getWriter().println(resultado);
+                    resp.getWriter().println((new JsonMapper<GetOrganizacion>()).toJson(resultado));
                 }else{
                     resp.getWriter().println("{\"error\": \"Acción no válida\"}");
                 }
