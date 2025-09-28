@@ -9,6 +9,8 @@ public class Voluntario extends Usuario {
     private String disponibilidad;
     private String areas_interes;
 
+
+
     public Voluntario(Long id, String nombre, String apellido, String correo, String telefono, String clave, Rol rol, String habilidades, String experiencia, String disponibilidad, String areas_interes, String nombreUsuario) {
         super(id, nombre, correo, telefono, clave, rol,nombreUsuario);
         this.habilidades = habilidades;
@@ -16,16 +18,21 @@ public class Voluntario extends Usuario {
         this.disponibilidad = disponibilidad;
         this.areas_interes = areas_interes;
         this.apellido = apellido;
+        super.setRol(Rol.VOLUNTARIO);
     }
 
+    //Este constructor es para guardar los voluntarios en la bd
     public Voluntario(String nombre, String apellido, String nombreUsuario, String correo, String clave) {
         super(nombre,nombreUsuario,correo,clave);
         this.apellido = apellido;
+        super.setRol(Rol.VOLUNTARIO);
     }
 
-    public Voluntario(Long idVoluntario, String nombre, String apellido, String correo, String clave, String nombreUsuario) {
-        super(idVoluntario,nombre,correo,clave,nombreUsuario);
+    //Este constructor es para obtener los voluntarios de la bd
+    public Voluntario(Long idVoluntario, String nombre, String apellido, String correo, String clave, String nombreUsuario,Rol rol) {
+        super(idVoluntario,nombre,correo,clave,nombreUsuario,rol);
         this.apellido = apellido;
+
     }
 
     public String getHabilidades() {
@@ -66,5 +73,17 @@ public class Voluntario extends Usuario {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    @Override
+    public String toString() {
+        return "\nVoluntario:\n" +
+                "Nombre: " + super.getNombre() +"\n"+
+                "Apellido: "+this.apellido+"\n"+
+                "Nombre Usuario: " + super.getNombreUsuario()+"\n"+
+                "Correo: "+super.getCorreo()+"\n"+
+                "Clave: "+ super.getClave()+"\n"+
+                "Rol: "+super.getRol().name()+"\n";
+
     }
 }
