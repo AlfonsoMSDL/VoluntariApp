@@ -29,13 +29,16 @@ public class Usuario {
 
     }
 
-    public Usuario(Long idVoluntario, String nombre, String correo, String clave, String nombreUsuario) {
-        this.id=idVoluntario;
+    public Usuario(Long id, String nombre, String correo, String clave, String nombreUsuario,Rol rol) {
+        this.id=id;
         this.nombre = nombre;
         this.correo = correo;
         this.clave = clave;
         this.nombreUsuario = nombreUsuario;
+        this.rol = rol;
     }
+
+
 
     public Long getId() {
         return id;
