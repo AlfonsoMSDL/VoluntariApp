@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VoluntariApp - Panel de Control</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/inicioOrg.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/styles.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/inicioOrg.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 <header class="encabezado">
     <div class="logo-titulo">
-        <img src="../assets/images/Logo.png" alt="Logo VoluntariApp" class="logo-app">
+        <img src="<%=request.getContextPath()%>/assets/images/Logo.png" alt="Logo VoluntariApp" class="logo-app">
         <h1>VoluntariApp</h1>
     </div>
 </header>

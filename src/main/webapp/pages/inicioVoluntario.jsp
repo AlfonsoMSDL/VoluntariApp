@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VoluntariApp - Panel de Control</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/inicioVolunt.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/styles.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/inicioVolunt.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 <header class="encabezado">
     <div class="logo-titulo">
-        <img src="../assets/images/Logo.png" alt="Logo VoluntariApp" class="logo-app">
+        <img src="<%=request.getContextPath()%>/assets/images/Logo.png" alt="Logo VoluntariApp" class="logo-app">
         <h1>VoluntariApp</h1>
     </div>
 </header>
@@ -33,6 +33,7 @@
     <-- Contenido principal -->
     <main class="contenido-principal">
         <div class="caja-bienvenida">
+
             <h2>Bienvenid@ Voluntario 👋</h2>
             <p>Gracias por hacer parte de esta comunidad. Aquí podrás gestionar tus proyectos, revisar notificaciones y explorar nuevas oportunidades.</p>
         </div>
