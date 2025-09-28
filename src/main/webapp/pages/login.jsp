@@ -10,13 +10,13 @@
 </head>
 <body>
 <div class="login-container">
-    <div class="form-section">
+    <form class="form-section" action="http://localhost:8181/voluntariApp/auth" method="post">
         <h1>Bienvenido</h1>
 
 
             <div class="form-group">
                 <label for="correo">Email</label>
-                <input type="text" id="email" name="email" placeholder="Ingresa tu email" required>
+                <input type="text" id="email" name="correo" placeholder="Ingresa tu email" required>
             </div>
 
             <div class="form-group">
@@ -31,7 +31,7 @@
             <p>¿No tienes una cuenta? <a href="registrar.jsp">Regístrate aquí</a></p>
         </div>
 
-    </div>
+    </form>
 
     <div class="seccion-imagen">
         <div class="image-placeholder">
@@ -40,6 +40,5 @@
     </div>
 </div>
 
-<script src="../js/login.js"></script>
 </body>
 </html>
