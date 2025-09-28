@@ -1,22 +1,21 @@
-package com.proyecto.v1.controller.voluntarioController;
+package com.proyecto.v1.controller;
 
 import com.proyecto.v1.dto.response.GetVoluntario;
 import com.proyecto.v1.mapper.JsonMapper;
-import com.proyecto.v1.model.Voluntario;
 import com.proyecto.v1.service.VoluntarioService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @WebServlet("/voluntarios")
 public class VoluntarioController extends HttpServlet {
     private final VoluntarioService voluntarioService = new VoluntarioService();
+    Logger log = Logger.getLogger(VoluntarioController.class);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -37,6 +36,8 @@ public class VoluntarioController extends HttpServlet {
 
                 if(resultado != null){ // Si se guardo
                     //req.setAttribute("resultado", resultado);
+                    log.info(voluntarioService.findAllVoluntarios().toString());
+
                     resp.getWriter().println((new JsonMapper<GetVoluntario>()).toJson(resultado));
                 }else{
                     resp.getWriter().println("{\"error\": \"Acción no válida\"}");
