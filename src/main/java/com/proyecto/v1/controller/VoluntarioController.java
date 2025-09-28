@@ -36,6 +36,8 @@ public class VoluntarioController extends HttpServlet {
 
                 if(resultado != null){ // Si se guardo
                     //req.setAttribute("resultado", resultado);
+                    log.info(resultado);
+                    log.info("Voluntario guardado correctamente\n");
                     log.info(voluntarioService.findAllVoluntarios().toString());
 
                     resp.getWriter().println((new JsonMapper<GetVoluntario>()).toJson(resultado));

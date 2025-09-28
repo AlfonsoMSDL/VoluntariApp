@@ -30,7 +30,6 @@ public class AuthService {
         Optional<Organizacion> organizacionOptional = organizacionService.findByCorreo(correo);
         if(organizacionOptional != null && organizacionOptional.isPresent()){ //Se encontro el correo como una organizacion
             Organizacion organizacionEncontrada = organizacionOptional.get();
-            log.info(organizacionEncontrada.toString()+"\n");
             log.info(organizacionService.findAllOrganizaciones().toString()+"\n");
 
 
@@ -47,6 +46,7 @@ public class AuthService {
         Optional<Voluntario> voluntarioOptional = voluntarioService.findByCorreo(correo);
         if(voluntarioOptional != null && voluntarioOptional.isPresent()){ //Se encontro el correo como un voluntario
             Voluntario voluntarioEncontrado = voluntarioOptional.get();
+            log.info(voluntarioService.findAllVoluntarios().toString()+"\n");
 
             //Compruebo si la clave que digitó es igual a la guardada en la BD
             if(clave.equals(voluntarioEncontrado.getClave())){
