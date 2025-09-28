@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JsonMapper<T> {
     private final ObjectMapper mapper = new ObjectMapper();
 
+    //Para convertir de un objeto de una clase generica a un Json
     public String toJson(T toConvert) {
         try {
             return mapper.writeValueAsString(toConvert);
@@ -15,6 +16,7 @@ public class JsonMapper<T> {
         }
     }
 
+    //Para convertir de un Json a un objeto de una clase generica
     public T fromJson(String json, Class<T> toConvert) {
         try {
             return mapper.readValue(json, toConvert);
