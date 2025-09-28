@@ -11,15 +11,20 @@ public class Organizacion extends Usuario{
         super(id, nombre, correo, telefono, clave, rol, nombreUsuario);
         this.tipo = tipo;
         this.descripcion = descripcion;
+        super.setRol(Rol.ORGANIZACION);
 
     }
 
+    //Este constructor es para guardar las organizaciones en la bd
     public Organizacion(String nombre, String nombreUsuario, String correo, String clave) {
         super(nombre, nombreUsuario, correo, clave);
+        super.setRol(Rol.ORGANIZACION);
     }
 
-    public Organizacion(Long idORganizacion, String nombre, String nombreUsuario, String correo, String clave) {
-        super(idORganizacion,nombre,nombreUsuario,correo,clave);
+    //Este constructor es para obtener las organizaciones de la bd
+    public Organizacion(Long idORganizacion, String nombre, String correo, String clave,String nombreUsuario,Rol rol) {
+        super(idORganizacion,nombre,correo,clave,nombreUsuario,rol);
+
     }
 
     public Tipo getTipo() {
@@ -36,5 +41,17 @@ public class Organizacion extends Usuario{
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @Override
+    public String toString() {
+        return "\nOrganizacion:\n" +
+                "Id: " + getId() + "\n" +
+                "Nombre: " + super.getNombre() + "\n"+
+                "Nombre Usuario: " + super.getNombreUsuario()+"\n"+
+                "Correo: "+super.getCorreo()+"\n"+
+                "Clave: "+ super.getClave()+"\n"+
+                "Rol: "+super.getRol().name()+"\n";
+
     }
 }
