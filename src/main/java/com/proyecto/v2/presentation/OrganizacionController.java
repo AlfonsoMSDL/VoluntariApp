@@ -1,8 +1,7 @@
-package com.proyecto.v1.controller;
+package com.proyecto.v2.presentation;
 
-import com.proyecto.v1.dto.response.GetOrganizacion;
-import com.proyecto.v1.mapper.JsonMapper;
-import com.proyecto.v1.service.OrganizacionService;
+import com.proyecto.v2.model.Organizacion;
+import com.proyecto.v2.service.OrganizacionService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -33,13 +32,13 @@ public class OrganizacionController extends HttpServlet {
 
 
 
-                GetOrganizacion resultado = organizacionService.save(nombre,nombreUsuario,correo,clave);
+                Organizacion resultado = organizacionService.save(nombre,nombreUsuario,correo,clave);
 
                 if(resultado != null){
                     log.info(resultado);
                     log.info("Organizacion guardada correctamente\n");
                     log.info(organizacionService.findAllOrganizaciones().toString());
-                    resp.getWriter().println((new JsonMapper<GetOrganizacion>()).toJson(resultado));
+                    resp.getWriter().println(resultado);
                 }else{
                     resp.getWriter().println("{\"error\": \"Acción no válida\"}");
                 }

@@ -1,7 +1,7 @@
-package com.proyecto.v1.model;
+package com.proyecto.v2.model;
 
-import com.proyecto.v1.model.util.Rol;
-import com.proyecto.v1.model.util.Tipo;
+import com.proyecto.v2.model.util.Rol;
+import com.proyecto.v2.model.util.Tipo;
 
 public class Organizacion extends Usuario{
     private Tipo tipo;

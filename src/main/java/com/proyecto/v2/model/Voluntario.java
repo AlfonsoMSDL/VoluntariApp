@@ -1,6 +1,6 @@
-package com.proyecto.v1.model;
+package com.proyecto.v2.model;
 
-import com.proyecto.v1.model.util.Rol;
+import com.proyecto.v2.model.util.Rol;
 
 public class Voluntario extends Usuario {
     private String apellido;

@@ -1,7 +1,7 @@
-package com.proyecto.v1.repository;
+package com.proyecto.v2.repository;
 
-import com.proyecto.v1.model.Voluntario;
-import com.proyecto.v1.model.util.Rol;
+import com.proyecto.v2.model.Voluntario;
+import com.proyecto.v2.model.util.Rol;
 
 import java.sql.*;
 import java.util.ArrayList;

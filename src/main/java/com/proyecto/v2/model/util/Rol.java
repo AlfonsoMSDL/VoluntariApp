@@ -1,4 +1,4 @@
-package com.proyecto.v1.model.util;
+package com.proyecto.v2.model.util;
 
 import java.util.Arrays;
 import java.util.List;

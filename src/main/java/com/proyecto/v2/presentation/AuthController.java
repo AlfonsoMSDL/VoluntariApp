@@ -1,7 +1,7 @@
-package com.proyecto.v1.controller;
+package com.proyecto.v2.presentation;
 
-import com.proyecto.v1.dto.response.GetUsuario;
-import com.proyecto.v1.service.AuthService;
+import com.proyecto.v2.model.Usuario;
+import com.proyecto.v2.service.AuthService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -24,14 +24,14 @@ public class AuthController extends HttpServlet {
         String correo = req.getParameter("correo");
         String clave = req.getParameter("clave");
 
-        GetUsuario usuarioLogin = authService.Login(correo, clave);
+        Usuario usuarioLogin = authService.Login(correo, clave);
 
         if (usuarioLogin != null) {
-            log.info("Usuario logueado: " + usuarioLogin.correo() + " | Rol: " + usuarioLogin.rol());
+            log.info("Usuario logueado: " + usuarioLogin.getCorreo() + " | Rol: " + usuarioLogin.getRol());
             HttpSession session = req.getSession();
             session.setAttribute("usuarioLogin", usuarioLogin);
 
-            switch (usuarioLogin.rol()) {
+            switch (usuarioLogin.getRol().name()) {
                 case "VOLUNTARIO" : req.getRequestDispatcher("pages/inicioVoluntario.jsp").forward(req, resp); break;
                 case "ORGANIZACION" :
                     log.info("Entro a la organizacion");
@@ -39,7 +39,7 @@ public class AuthController extends HttpServlet {
 
                 case "ADMIN": req.getRequestDispatcher("pages/inicioAdmin.jsp").forward(req, resp);break;
                 default : {
-                    log.warn("Rol desconocido: " + usuarioLogin.rol());
+                    log.warn("Rol desconocido: " + usuarioLogin.getRol().name());
                     resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Rol no reconocido");
                 }
             }

@@ -1,6 +1,6 @@
-package com.proyecto.v1.model;
+package com.proyecto.v2.model;
 
-import com.proyecto.v1.model.util.Categoria;
+import com.proyecto.v2.model.util.Categoria;
 
 import java.util.Date;
 

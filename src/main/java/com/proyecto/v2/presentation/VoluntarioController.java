@@ -1,8 +1,7 @@
-package com.proyecto.v1.controller;
+package com.proyecto.v2.presentation;
 
-import com.proyecto.v1.dto.response.GetVoluntario;
-import com.proyecto.v1.mapper.JsonMapper;
-import com.proyecto.v1.service.VoluntarioService;
+import com.proyecto.v2.model.Voluntario;
+import com.proyecto.v2.service.VoluntarioService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -32,7 +31,7 @@ public class VoluntarioController extends HttpServlet {
                 String clave = req.getParameter("clave");
                 String nombreUsuario = req.getParameter("nombreUsuario");
 
-                GetVoluntario resultado = voluntarioService.save(nombre, apellido,nombreUsuario, correo, clave);
+                Voluntario resultado = voluntarioService.save(nombre, apellido,nombreUsuario, correo, clave);
 
                 if(resultado != null){ // Si se guardo
                     //req.setAttribute("resultado", resultado);
@@ -40,7 +39,7 @@ public class VoluntarioController extends HttpServlet {
                     log.info("Voluntario guardado correctamente\n");
                     log.info(voluntarioService.findAllVoluntarios().toString());
 
-                    resp.getWriter().println((new JsonMapper<GetVoluntario>()).toJson(resultado));
+                    resp.getWriter().println(resultado);
                 }else{
                     resp.getWriter().println("{\"error\": \"Acción no válida\"}");
                     //req.setAttribute("resultado", "No guardado");

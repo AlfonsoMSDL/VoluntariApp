@@ -1,4 +1,4 @@
-package com.proyecto.v1.model;
+package com.proyecto.v2.model;
 
 public class Evaluacion {
     private Long id;
