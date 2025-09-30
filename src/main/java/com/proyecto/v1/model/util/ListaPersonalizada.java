@@ -1,4 +1,4 @@
-package com.proyecto.v1.util;
+package com.proyecto.v1.model.util;
 
 import java.util.*;
 
