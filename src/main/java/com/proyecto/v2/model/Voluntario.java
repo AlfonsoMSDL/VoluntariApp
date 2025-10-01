@@ -78,6 +78,7 @@ public class Voluntario extends Usuario {
     @Override
     public String toString() {
         return "\nVoluntario:\n" +
+                "Id voluntario: "+this.getId()+"\n" +
                 "Nombre: " + super.getNombre() +"\n"+
                 "Apellido: "+this.apellido+"\n"+
                 "Nombre Usuario: " + super.getNombreUsuario()+"\n"+
