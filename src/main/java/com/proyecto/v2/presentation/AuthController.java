@@ -32,10 +32,14 @@ public class AuthController extends HttpServlet {
             session.setAttribute("usuarioLogin", usuarioLogin);
 
             switch (usuarioLogin.getRol().name()) {
-                case "VOLUNTARIO" : req.getRequestDispatcher("pages/inicioVoluntario.jsp").forward(req, resp); break;
+                case "VOLUNTARIO" : resp.sendRedirect("pages/inicioVoluntario.jsp");
+
+                break;
                 case "ORGANIZACION" :
                     log.info("Entro a la organizacion");
-                    req.getRequestDispatcher("pages/inicioOrganizacion.jsp").forward(req, resp); break;
+                    resp.sendRedirect("pages/inicioOrganizacion.jsp");
+
+                    break;
 
                 case "ADMIN": req.getRequestDispatcher("pages/inicioAdmin.jsp").forward(req, resp);break;
                 default : {
