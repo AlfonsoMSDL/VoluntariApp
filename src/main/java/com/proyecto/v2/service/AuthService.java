@@ -29,7 +29,7 @@ public class AuthService {
             //Compruebo si la clave que digitó es igual a la guardada en la BD
             if(clave.equals(organizacionEncontrada.getClave())){
                 //Convierto la organizacion a un usuario para devolverla
-                Usuario usuario = (Usuario) organizacionEncontrada;
+                Usuario usuario = organizacionEncontrada;
                 return usuario;
             }
         }
@@ -44,7 +44,7 @@ public class AuthService {
             //Compruebo si la clave que digitó es igual a la guardada en la BD
             if(clave.equals(voluntarioEncontrado.getClave())){
                 //Convierto la voluntario a un usuario para devolverla
-                Usuario usuario = (Usuario) voluntarioEncontrado;
+                Usuario usuario =  voluntarioEncontrado;
                 return usuario;
             }
 
