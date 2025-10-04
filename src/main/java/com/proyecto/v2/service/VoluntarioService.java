@@ -1,7 +1,7 @@
 package com.proyecto.v2.service;
 
 import com.proyecto.v2.model.Voluntario;
-import com.proyecto.v2.repository.VoluntarioDao;
+import com.proyecto.v2.persistence.VoluntarioDao;
 
 import java.util.List;
 import java.util.Optional;

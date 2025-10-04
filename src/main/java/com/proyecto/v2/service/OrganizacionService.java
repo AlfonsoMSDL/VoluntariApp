@@ -1,7 +1,7 @@
 package com.proyecto.v2.service;
 
 import com.proyecto.v2.model.Organizacion;
-import com.proyecto.v2.repository.OrganizacionDao;
+import com.proyecto.v2.persistence.OrganizacionDao;
 
 import java.util.List;
 import java.util.Optional;

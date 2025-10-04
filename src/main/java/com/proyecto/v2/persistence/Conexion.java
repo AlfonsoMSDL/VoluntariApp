@@ -1,4 +1,4 @@
-package com.proyecto.v2.repository;
+package com.proyecto.v2.persistence;
 
 import java.sql.*;
 

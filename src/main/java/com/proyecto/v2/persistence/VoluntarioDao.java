@@ -1,4 +1,4 @@
-package com.proyecto.v2.repository;
+package com.proyecto.v2.persistence;
 
 import com.proyecto.v2.model.Voluntario;
 import com.proyecto.v2.model.util.Rol;
