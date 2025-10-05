@@ -10,18 +10,18 @@ import java.util.Optional;
 
 public class VoluntarioDao {
 
-    private final String INSERT = "INSERT INTO voluntarios (nombre,apellido,nombre_usuario,correo,contrasena,rol) VALUES (?,?,?,?,?,?)";
-    private final String SELECT = "SELECT * FROM voluntarios";
+    private final String INSERT = "INSERT INTO voluntarios (nombre, apellido, nombre_usuario, correo, contrasena, rol, telefono) VALUES (?,?,?,?,?,?,?)";
+    private final String SELECT_ALL = "SELECT * FROM voluntarios";
+    private final String SELECT_BY_ID = "SELECT * FROM voluntarios WHERE id_voluntario = ?";
     private final String FIND_BY_CORREO = "SELECT * FROM voluntarios WHERE correo = ?";
+    private final String UPDATE = "UPDATE voluntarios SET nombre=?, apellido=?, nombre_usuario=?, correo=?, contrasena=?, telefono = ?, habilidades = ?, experiencia = ?, areas_interes = ?, disponibilidad = ? WHERE id_voluntario=?";
 
+    private final String DELETE = "DELETE FROM voluntarios WHERE id_voluntario=?";
+
+    // CREATE
     public Voluntario save(Voluntario voluntario) {
-
-        Connection conn = null;
-        PreparedStatement stmt = null;
-
-        try {
-            conn = Conexion.getConnection();
-            stmt = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, voluntario.getNombre());
             stmt.setString(2, voluntario.getApellido());
@@ -29,6 +29,7 @@ public class VoluntarioDao {
             stmt.setString(4, voluntario.getCorreo());
             stmt.setString(5, voluntario.getClave());
             stmt.setString(6, voluntario.getRol().name());
+            stmt.setString(7, voluntario.getTelefono());
 
             int registrosAfectados = stmt.executeUpdate();
 
@@ -37,89 +38,144 @@ public class VoluntarioDao {
                 voluntario.setId(rs.getLong(1));
             }
 
-
             Conexion.close(rs);
-            Conexion.close(stmt);
-            Conexion.close(conn);
-            return registrosAfectados != 0 ?voluntario:null;
+            return registrosAfectados != 0 ? voluntario : null;
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al guardar el voluntario", e);
         }
-
     }
 
-    public List<Voluntario> findAll(){
-        Connection conn = null;
-        PreparedStatement stmt = null;
-
+    // READ ALL
+    public List<Voluntario> findAll() {
         List<Voluntario> voluntarios = new ArrayList<>();
-        Voluntario voluntario = null;
 
-        try {
-            conn = Conexion.getConnection();
-            stmt = conn.prepareStatement(SELECT);
-            ResultSet rs = stmt.executeQuery();
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SELECT_ALL);
+             ResultSet rs = stmt.executeQuery()) {
 
-            while(rs.next()){
+            while (rs.next()) {
                 Long idVoluntario = rs.getLong("id_voluntario");
-                String nombre =  rs.getString("nombre");
-                String apellido =  rs.getString("apellido");
-                String correo =  rs.getString("correo");
-                String clave =  rs.getString("contrasena");
-                String nombreUsuario =  rs.getString("nombre_usuario");
-                Rol rol =  Rol.obtenerRol(rs.getString("rol"));
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                String correo = rs.getString("correo");
+                String clave = rs.getString("contrasena");
+                String nombreUsuario = rs.getString("nombre_usuario");
+                Rol rol = Rol.obtenerRol(rs.getString("rol"));
+                String telefono = rs.getString("telefono");
 
-                voluntario = new Voluntario(idVoluntario,nombre,apellido,correo,clave,nombreUsuario,rol);
-
+                Voluntario voluntario = new Voluntario(idVoluntario, nombre, apellido, correo, clave, nombreUsuario, rol);
+                voluntario.setTelefono(telefono);
                 voluntarios.add(voluntario);
             }
 
-            Conexion.close(rs);
-            Conexion.close(stmt);
-            Conexion.close(conn);
-
-            return voluntarios;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al listar los voluntarios", e);
         }
+
+        return voluntarios;
     }
 
-    public Optional<Voluntario> findByCorreo(String correoBuscar){
-        Connection conn;
-        PreparedStatement stmt;
+    // READ BY ID
+    public Optional<Voluntario> findById(Long idVoluntario) {
         Voluntario voluntario = null;
 
-        try{
-            conn = Conexion.getConnection();
-            stmt = conn.prepareStatement(FIND_BY_CORREO);
-            stmt.setString(1, correoBuscar);
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SELECT_BY_ID)) {
+
+            stmt.setLong(1, idVoluntario);
             ResultSet rs = stmt.executeQuery();
 
-            while(rs.next()){
-                Long idVoluntario = rs.getLong("id_voluntario");
-                String nombre =  rs.getString("nombre");
-                String apellido =  rs.getString("apellido");
-                String correo = rs.getString("correo");
-                String contrasena =  rs.getString("contrasena");
-                String nombreUsuario =  rs.getString("nombre_usuario");
-
-                Rol rol =  Rol.obtenerRol(rs.getString("rol"));
-
-                voluntario = new Voluntario(idVoluntario,nombre,apellido,correo,contrasena,nombreUsuario,rol);
-
+            if (rs.next()) {
+                voluntario = new Voluntario(
+                        rs.getLong("id_voluntario"),
+                        rs.getString("nombre"),
+                        rs.getString("apellido"),
+                        rs.getString("correo"),
+                        rs.getString("contrasena"),
+                        rs.getString("nombre_usuario"),
+                        Rol.obtenerRol(rs.getString("rol"))
+                );
+                voluntario.setTelefono(rs.getString("telefono"));
             }
 
             Conexion.close(rs);
-            Conexion.close(stmt);
-            Conexion.close(conn);
 
-
-
-            return voluntario != null? Optional.of(voluntario):null; //En caso de que no se encuentre, retorna nulo
-        }catch(SQLException e){
-            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al buscar voluntario por ID", e);
         }
 
+        return Optional.ofNullable(voluntario);
+    }
+
+    // READ BY EMAIL
+    public Optional<Voluntario> findByCorreo(String correoBuscar) {
+        Voluntario voluntario = null;
+
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(FIND_BY_CORREO)) {
+
+            stmt.setString(1, correoBuscar);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                voluntario = new Voluntario(
+                        rs.getLong("id_voluntario"),
+                        rs.getString("nombre"),
+                        rs.getString("apellido"),
+                        rs.getString("correo"),
+                        rs.getString("contrasena"),
+                        rs.getString("nombre_usuario"),
+                        Rol.obtenerRol(rs.getString("rol"))
+                );
+                voluntario.setTelefono(rs.getString("telefono"));
+            }
+
+            Conexion.close(rs);
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al buscar voluntario por correo", e);
+        }
+
+        return Optional.ofNullable(voluntario);
+    }
+
+    // UPDATE
+    public Voluntario update(Voluntario voluntario) {
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(UPDATE)) {
+
+            stmt.setString(1, voluntario.getNombre());
+            stmt.setString(2, voluntario.getApellido());
+            stmt.setString(3, voluntario.getNombreUsuario());
+            stmt.setString(4, voluntario.getCorreo());
+            stmt.setString(5, voluntario.getClave());
+            stmt.setString(6, voluntario.getTelefono());
+            stmt.setString(7, voluntario.getHabilidades());
+            stmt.setString(8, voluntario.getExperiencia());
+            stmt.setString(9, voluntario.getAreas_interes());
+            stmt.setString(10, voluntario.getDisponibilidad());
+
+
+            stmt.setLong(11, voluntario.getId());
+
+            return stmt.executeUpdate() > 0 ? voluntario: null;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al actualizar voluntario", e);
+        }
+    }
+
+    // DELETE
+    public boolean delete(Long idVoluntario) {
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(DELETE)) {
+
+            stmt.setLong(1, idVoluntario);
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al eliminar voluntario", e);
+        }
     }
 }

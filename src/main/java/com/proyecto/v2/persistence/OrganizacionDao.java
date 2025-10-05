@@ -2,6 +2,7 @@ package com.proyecto.v2.persistence;
 
 import com.proyecto.v2.model.Organizacion;
 import com.proyecto.v2.model.util.Rol;
+import com.proyecto.v2.model.util.Tipo;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,11 +10,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class OrganizacionDao {
-    private static final String INSERT = "INSERT INTO organizaciones (nombre, nombre_usuario, correo, contrasena, rol) VALUES(?,?,?,?,?)";
+    private static final String INSERT = "INSERT INTO organizaciones (nombre, nombre_usuario, correo, contrasena, rol, telefono, tipo) VALUES(?,?,?,?,?,?,?)";
     private static final String SELECT = "SELECT * FROM organizaciones";
     private static final String FIND_BY_CORREO = "SELECT * FROM organizaciones WHERE correo = ?";
     private static final String FIND_BY_ID = "SELECT * FROM organizaciones WHERE id_organizacion = ?";
-    private static final String UPDATE = "UPDATE organizaciones SET nombre = ?, nombre_usuario = ?, correo = ?, contrasena = ?, rol = ? WHERE id_organizacion = ?";
+    private static final String UPDATE = "UPDATE organizaciones SET nombre = ?, nombre_usuario = ?, correo = ?, contrasena = ?, telefono = ?, tipo = ?, descripcion = ? WHERE id_organizacion = ?";
     private static final String DELETE = "DELETE FROM organizaciones WHERE id_organizacion = ?";
 
     public Organizacion save(Organizacion organizacion){
@@ -27,8 +28,10 @@ public class OrganizacionDao {
             stmt.setString(1,organizacion.getNombre());
             stmt.setString(2,organizacion.getNombreUsuario());
             stmt.setString(3,organizacion.getCorreo());
-            stmt.setString(4, organizacion.getClave());
+            stmt.setString(4,organizacion.getClave());
             stmt.setString(5,organizacion.getRol().name());
+            stmt.setString(6,organizacion.getTelefono());
+            stmt.setString(7,organizacion.getTipo().getTipoString());
 
             int registrosAfectados = stmt.executeUpdate();
 
@@ -66,8 +69,15 @@ public class OrganizacionDao {
                 String correo = rs.getString("correo");
                 String clave = rs.getString("contrasena");
                 Rol rol = Rol.obtenerRol(rs.getString("rol"));
+                String telefono = rs.getString("telefono");
+                String tipo = rs.getString("tipo");
+                String descripcion = rs.getString("descripcion");
+
 
                 organizacion = new Organizacion(idOrganizacion,nombre,correo,clave,nombreUsuario,rol);
+                organizacion.setTelefono(telefono);
+                organizacion.setTipo(Tipo.fromString(tipo));
+                organizacion.setDescripcion(descripcion);
                 organizaciones.add(organizacion);
             }
 
@@ -98,8 +108,15 @@ public class OrganizacionDao {
                 String correo = rs.getString("correo");
                 String clave = rs.getString("contrasena");
                 Rol rol = Rol.obtenerRol(rs.getString("rol"));
+                String telefono = rs.getString("telefono");
+                String tipo = rs.getString("tipo");
+                String descripcion = rs.getString("descripcion");
 
                 organizacion = new Organizacion(idOrganizacion,nombre,correo,clave,nombreUsuario,rol);
+
+                organizacion.setTelefono(telefono);
+                organizacion.setTipo(Tipo.fromString(tipo));
+                organizacion.setDescripcion(descripcion);
             }
 
             Conexion.close(rs);
@@ -131,8 +148,16 @@ public class OrganizacionDao {
                 String correo = rs.getString("correo");
                 String clave = rs.getString("contrasena");
                 Rol rol = Rol.obtenerRol(rs.getString("rol"));
+                String telefono = rs.getString("telefono");
+                String tipo = rs.getString("tipo");
+                String descripcion = rs.getString("descripcion");
 
                 organizacion = new Organizacion(idOrganizacion,nombre,correo,clave,nombreUsuario,rol);
+
+                organizacion.setTelefono(telefono);
+                organizacion.setTipo(Tipo.fromString(tipo));
+                organizacion.setDescripcion(descripcion);
+
             }
 
             Conexion.close(rs);
@@ -145,8 +170,8 @@ public class OrganizacionDao {
         }
     }
 
-    // 🔹 Modificar
-    public boolean update(Organizacion organizacion){
+    // Modificar
+    public Organizacion update(Organizacion organizacion){
         Connection conn;
         PreparedStatement stmt;
 
@@ -158,15 +183,17 @@ public class OrganizacionDao {
             stmt.setString(2, organizacion.getNombreUsuario());
             stmt.setString(3, organizacion.getCorreo());
             stmt.setString(4, organizacion.getClave());
-            stmt.setString(5, organizacion.getRol().name());
-            stmt.setLong(6, organizacion.getId());
+            stmt.setString(5, organizacion.getTelefono());
+            stmt.setString(6, organizacion.getTipo().getTipoString());
+            stmt.setString(7, organizacion.getDescripcion());
+            stmt.setLong(8, organizacion.getId());
 
             int registrosAfectados = stmt.executeUpdate();
 
             Conexion.close(stmt);
             Conexion.close(conn);
 
-            return registrosAfectados > 0;
+            return registrosAfectados > 0? organizacion: null;
         }catch(SQLException e){
             throw new RuntimeException(e);
         }
