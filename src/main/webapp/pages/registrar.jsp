@@ -1,4 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!-- Importo JSTL para usar el forEach -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.proyecto.v2.model.util.Tipo" %>
+
+<%
+    request.setAttribute("tipos", Tipo.values());
+%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -42,18 +49,39 @@
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="Ingresa tu correo electrónico" required>
                 </div>
+
+                <div class="form-group">
+                    <label for="telefonoVoluntario">Teléfono</label>
+                    <input type="tel" id="telefonoVoluntario" name="telefono" placeholder="+57 300 123 4567" required>
+                </div>
             </div>
 
             <!-- SECCIÓN ORGANIZACIÓN -->
             <div id="seccion-organizacion" class="hidden">
                 <div class="form-group">
-                    <label for="nombreOrganizacion">Nombre</label>
+                    <label for="nombreOrganizacion">Nombre de la Organización</label>
                     <input type="text" id="nombreOrganizacion" name="nombreOrganizacion" placeholder="Ingresa el nombre de tu organización" required>
                 </div>
 
                 <div class="form-group">
                     <label for="emailOrganizacion">Email</label>
                     <input type="email" id="emailOrganizacion" name="emailOrganizacion" placeholder="Ingresa el correo de tu organización" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefonoOrganizacion">Teléfono</label>
+                    <input type="tel" id="telefonoOrganizacion" name="telefono" placeholder="" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="tipoOrganizacion">Tipo de Organización</label>
+                    <select id="tipoOrganizacion" name="tipo" required>
+                        <option value="">Selecciona un tipo</option>
+                        <c:forEach var="tipo" items="${tipos}" >
+                            <option value="${tipo.tipoString}">${tipo.tipoString}</option>
+                        </c:forEach>
+
+                    </select>
                 </div>
             </div>
 

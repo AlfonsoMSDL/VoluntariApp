@@ -8,7 +8,7 @@ function animarFormulario() {
     camposForm.classList.add('hiddenAnim');
     setTimeout(() => {
         camposForm.classList.remove('hiddenAnim');
-    }, 600); // mismo tiempo que el transition en CSS
+    }, 600);
 }
 
 // Cambiar secciones según el rol
@@ -48,7 +48,6 @@ btnLogin.addEventListener("click", async (event) => {
     // Re-validar antes de enviar
     validarClave();
 
-
     const rol = document.querySelector('input[name="rol"]:checked').value;
 
     if (rol === "voluntario") {
@@ -56,6 +55,7 @@ btnLogin.addEventListener("click", async (event) => {
         const apellido = document.getElementById("apellido").value;
         const nombreUsuario = document.getElementById("usuario").value;
         const correo = document.getElementById("email").value;
+        const telefono = document.getElementById("telefonoVoluntario").value;
         const claveValue = claveInput.value;
 
         const params = new URLSearchParams();
@@ -64,6 +64,7 @@ btnLogin.addEventListener("click", async (event) => {
         params.append("apellido", apellido);
         params.append("nombreUsuario", nombreUsuario);
         params.append("correo", correo);
+        params.append("telefono", telefono);
         params.append("clave", claveValue);
 
         try {
@@ -77,22 +78,36 @@ btnLogin.addEventListener("click", async (event) => {
 
             const data = await response.text();
             console.log("Respuesta del servidor:", data);
-            alert("Voluntario agregado");
+            alert("Voluntario agregado exitosamente");
+
+            // Opcional: Redirigir al login
+            // window.location.href = "login.jsp";
         } catch (error) {
             console.error("Hubo un error al guardar el voluntario:", error);
+            alert("Error al registrar voluntario. Por favor intenta nuevamente.");
         }
 
     } else if (rol === "organizacion") {
         const nombre = document.getElementById("nombreOrganizacion").value;
         const nombreUsuario = document.getElementById("usuario").value;
         const correo = document.getElementById("emailOrganizacion").value;
+        const telefono = document.getElementById("telefonoOrganizacion").value;
+        const tipo = document.getElementById("tipoOrganizacion").value;
         const claveValue = claveInput.value;
+
+        // Validar que se haya seleccionado un tipo
+        if (!tipo) {
+            alert("Por favor selecciona el tipo de organización");
+            return;
+        }
 
         const params = new URLSearchParams();
         params.append("action", "save");
         params.append("nombreOrganizacion", nombre);
         params.append("nombreUsuario", nombreUsuario);
         params.append("emailOrganizacion", correo);
+        params.append("telefono", telefono);
+        params.append("tipo", tipo);
         params.append("clave", claveValue);
 
         try {
@@ -106,9 +121,13 @@ btnLogin.addEventListener("click", async (event) => {
 
             const data = await response.text();
             console.log("Respuesta del servidor:", data);
-            alert("Organización agregada");
+            alert("Organización agregada exitosamente");
+
+            // Opcional: Redirigir al login
+            // window.location.href = "login.jsp";
         } catch (error) {
             console.error("Hubo un error al registrar la organización:", error);
+            alert("Error al registrar organización. Por favor intenta nuevamente.");
         }
     }
 });
