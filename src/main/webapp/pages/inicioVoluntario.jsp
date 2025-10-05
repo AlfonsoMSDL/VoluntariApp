@@ -1,4 +1,7 @@
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -22,7 +25,7 @@
     <aside class="menu-lateral">
         <h2 class="titulo-menu">MENÚ</h2>
         <ul class="lista-opciones">
-            <li><a href="#"><span class="material-icons">account_circle</span> Perfil</a></li>
+            <li><a href="perfilVoluntario.jsp"><span class="material-icons">account_circle</span> Perfil</a></li>
             <li><a href="#"><span class="material-icons">work</span> Proyectos</a></li>
             <li><a href="#"><span class="material-icons">notifications</span> Notificaciones</a></li>
             <li><a href="#"><span class="material-icons">history</span> Historial</a></li>
@@ -30,11 +33,11 @@
         </ul>
     </aside>
 
-    <-- Contenido principal -->
+    <!-- Contenido principal -->
     <main class="contenido-principal">
         <div class="caja-bienvenida">
 
-            <h2>Bienvenid@ Voluntario 👋</h2>
+            <h2>Bienvenid@ ${usuarioLogin.nombreUsuario} 👋</h2>
             <p>Gracias por hacer parte de esta comunidad. Aquí podrás gestionar tus proyectos, revisar notificaciones y explorar nuevas oportunidades.</p>
         </div>
 
