@@ -38,7 +38,14 @@ public class Usuario {
         this.rol = rol;
     }
 
-
+    public Usuario(Long id, String nombre, String correo, String telefono, String clave, String nombreUsuario) {
+        this.id = id;
+        this.nombre = nombre;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.clave = clave;
+        this.nombreUsuario = nombreUsuario;
+    }
 
     public Long getId() {
         return id;
