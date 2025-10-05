@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/login.css">
 </head>
 <body>
 <div class="login-container">
@@ -21,7 +21,7 @@
 
             <div class="form-group">
                 <label for="contraseña">Contraseña</label>
-                <input type="password" id="contrasena" name="clave" placeholder="Ingresa tu contraseña" minlength="5" required>
+                <input type="password" id="contrasena" name="clave" placeholder="Ingresa tu contraseña" minlength="4" required>
             </div>
 
             <button type="submit" class="login-btn">LOGIN</button>
