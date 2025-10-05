@@ -22,7 +22,7 @@
     <aside class="menu-lateral">
         <h2 class="titulo-menu">MENÚ</h2>
         <ul class="lista-opciones">
-            <li><a href="#"><span class="material-icons">account_circle</span> Perfil</a></li>
+            <li><a href="perfilOrganizacion.jsp"><span class="material-icons">account_circle</span> Perfil</a></li>
             <li><a href="#"><span class="material-icons">work</span> Proyectos</a></li>
             <li><a href="#"><span class="material-icons">notifications</span> Notificaciones</a></li>
             <li><a href="#"><span class="material-icons">assignment</span> Inscripciones</a></li>
@@ -33,7 +33,7 @@
     <!-- Contenido principal -->
     <main class="contenido-principal">
         <div class="caja-bienvenida">
-            <h2>Bienvenid@ Organizacion 👋</h2>
+            <h2>Bienvenid@ ${usuarioLogin.nombreUsuario} 👋</h2>
             <p>Gracias por hacer parte de esta comunidad. Aquí podrás gestionar tus proyectos, revisar notificaciones y explorar nuevas oportunidades.</p>
         </div>
 
