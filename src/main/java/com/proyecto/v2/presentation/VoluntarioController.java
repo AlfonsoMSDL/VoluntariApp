@@ -25,31 +25,83 @@ public class VoluntarioController extends HttpServlet {
         if(accion == null) accion = "default";
         switch (accion) {
             case "save":
-                String nombre = req.getParameter("nombre");
-                String apellido = req.getParameter("apellido");
-                String correo = req.getParameter("correo");
-                String clave = req.getParameter("clave");
-                String nombreUsuario = req.getParameter("nombreUsuario");
 
-                Voluntario resultado = voluntarioService.save(nombre, apellido,nombreUsuario, correo, clave);
+                guardarVoluntario(req,resp);
 
-                if(resultado != null){ // Si se guardo
-                    //req.setAttribute("resultado", resultado);
-                    log.info(resultado);
-                    log.info("Voluntario guardado correctamente\n");
-                    log.info(voluntarioService.findAllVoluntarios().toString());
+                break;
 
-                    resp.getWriter().println(resultado);
-                }else{
-                    resp.getWriter().println("{\"error\": \"Acción no válida\"}");
-                    //req.setAttribute("resultado", "No guardado");
-                }
-                //req.getRequestDispatcher("pages/registro.jsp").forward(req,resp);
+            case "update":
+                actualizarVoluntario(req,resp);
                 break;
             default:
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
                 break;
 
+        }
+
+
+    }
+
+
+
+    private void guardarVoluntario(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String nombre = req.getParameter("nombre");
+        String apellido = req.getParameter("apellido");
+        String correo = req.getParameter("correo");
+        String clave = req.getParameter("clave");
+        String telefono = req.getParameter("telefono");
+        String nombreUsuario = req.getParameter("nombreUsuario");
+
+        Voluntario resultado = voluntarioService.save(nombre, apellido,nombreUsuario, correo, clave,telefono);
+
+        if(resultado != null){ // Si se guardo
+            //req.setAttribute("resultado", resultado);
+            log.info(resultado);
+            log.info("Voluntario guardado correctamente\n");
+            log.info(voluntarioService.findAllVoluntarios().toString());
+
+            resp.getWriter().println(resultado);
+        }else{
+            resp.getWriter().println("{\"error\": \"Acción no válida\"}");
+            //req.setAttribute("resultado", "No guardado");
+        }
+        //req.getRequestDispatcher("pages/registro.jsp").forward(req,resp);
+    }
+
+    private void actualizarVoluntario(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Long id = Long.parseLong( req.getParameter("idVoluntario"));
+        String nombre = req.getParameter("nombre");
+        String apellido = req.getParameter("apellido");
+        String correo = req.getParameter("correo");
+        String clave = req.getParameter("clave");
+        String telefono = req.getParameter("telefono");
+        String nombreUsuario = req.getParameter("nombreUsuario");
+        String hablidades = req.getParameter("habilidades");
+        String experiencia = req.getParameter("experiencia");
+        String disponibilidad = req.getParameter("disponibilidad");
+        String areas_interes = req.getParameter("areas_interes");
+
+        Voluntario actualizado = voluntarioService.update(
+                id,
+                nombre,
+                apellido,
+                correo,
+                telefono,
+                clave,
+                hablidades,
+                experiencia,
+                disponibilidad,
+                areas_interes,
+                nombreUsuario);
+
+        if(actualizado != null){
+            //Si se actualizo
+            resp.getWriter().println("{\"mensaje\":\"Actualizado correctamente\"}");
+            log.info("Actualizado correctamente");
+            req.getSession().setAttribute("usuarioLogin",actualizado);
+        }else{
+            resp.getWriter().println("{\"mensaje\":\"No se pudo actualizar\"}");
+            log.info("No se pudo actualizar");
         }
 
 
