@@ -58,7 +58,7 @@ public class VoluntarioController extends HttpServlet {
             //req.setAttribute("resultado", resultado);
             log.info(resultado);
             log.info("Voluntario guardado correctamente\n");
-            log.info(voluntarioService.findAllVoluntarios().toString());
+            //log.info(voluntarioService.findAllVoluntarios().toString());
 
             resp.getWriter().println(resultado);
         }else{
@@ -106,5 +106,7 @@ public class VoluntarioController extends HttpServlet {
 
 
     }
+
+
 
 }
