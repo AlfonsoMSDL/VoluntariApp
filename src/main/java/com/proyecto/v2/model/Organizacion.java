@@ -1,32 +1,29 @@
 package com.proyecto.v2.model;
 
-import com.proyecto.v2.model.util.Rol;
-import com.proyecto.v2.model.util.Tipo;
+import com.proyecto.v2.model.TipoOrganizacion;
 
 public class Organizacion extends Usuario{
-    private Tipo tipo;
+    private TipoOrganizacion tipoOrganizacion;
     private String descripcion;
 
 
-    public Organizacion(Long id, String nombre, String correo, String telefono, String clave, Rol rol, Tipo tipo, String descripcion, String nombreUsuario) {
+    public Organizacion(Long id, String nombre, String correo, String telefono, String clave, Rol rol, TipoOrganizacion tipoOrganizacion, String descripcion, String nombreUsuario) {
         super(id, nombre, correo, telefono, clave, rol, nombreUsuario);
-        this.tipo = tipo;
+        this.tipoOrganizacion = tipoOrganizacion;
         this.descripcion = descripcion;
-        super.setRol(Rol.ORGANIZACION);
 
     }
 
     //Este constructor será para actualizar la organizacion
-    public Organizacion(Long id, String nombre, String correo, String telefono, String clave, String nombreUsuario, Tipo tipo, String descripcion) {
+    public Organizacion(Long id, String nombre, String correo, String telefono, String clave, String nombreUsuario, TipoOrganizacion tipoOrganizacion, String descripcion) {
         super(id, nombre, correo, telefono, clave, nombreUsuario);
-        this.tipo = tipo;
+        this.tipoOrganizacion = tipoOrganizacion;
         this.descripcion = descripcion;
     }
 
     //Este constructor es para guardar las organizaciones en la bd
     public Organizacion(String nombre, String nombreUsuario, String correo, String clave) {
         super(nombre, nombreUsuario, correo, clave);
-        super.setRol(Rol.ORGANIZACION);
     }
 
     //Este constructor es para obtener las organizaciones de la bd
@@ -35,12 +32,12 @@ public class Organizacion extends Usuario{
 
     }
 
-    public Tipo getTipo() {
-        return tipo;
+    public TipoOrganizacion getTipo() {
+        return tipoOrganizacion;
     }
 
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
+    public void setTipo(TipoOrganizacion tipoOrganizacion) {
+        this.tipoOrganizacion = tipoOrganizacion;
     }
 
     public String getDescripcion() {
@@ -58,10 +55,10 @@ public class Organizacion extends Usuario{
                 "Nombre: " + super.getNombre() + "\n"+
                 "Nombre Usuario: " + super.getNombreUsuario()+"\n"+
                 "Telefono: "+super.getTelefono()+"\n"+
-                "Tipo: "+tipo+"\n"+
+                "TipoOrganizacion: "+ tipoOrganizacion +"\n"+
                 "Correo: "+super.getCorreo()+"\n"+
-                "Clave: "+ super.getClave()+"\n"+
-                "Rol: "+super.getRol().name()+"\n";
+                "Clave: "+ super.getClave()+"\n";
 
     }
+
 }

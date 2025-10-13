@@ -1,6 +1,6 @@
 package com.proyecto.v2.model;
 
-import com.proyecto.v2.model.util.Categoria;
+import com.proyecto.v2.model.Categoria;
 
 import java.util.Date;
 
@@ -14,8 +14,9 @@ public class Proyecto {
     private Date fecha_fin;
     private Integer voluntarios_requeridos;
     private Categoria categoria;
+    private Organizacion organizacion;
 
-    public Proyecto(Long id, String nombre, String descripcion, String ubicacion, String requisitos, Date fecha_inicio, Date fecha_fin, Integer voluntarios_requeridos, Categoria categoria) {
+    public Proyecto(Long id, String nombre, String descripcion, String ubicacion, String requisitos, Date fecha_inicio, Date fecha_fin, Integer voluntarios_requeridos, Categoria categoria, Organizacion organizacion) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -25,6 +26,7 @@ public class Proyecto {
         this.fecha_fin = fecha_fin;
         this.voluntarios_requeridos = voluntarios_requeridos;
         this.categoria = categoria;
+        this.organizacion = organizacion;
     }
 
     public Long getId() {
@@ -97,5 +99,13 @@ public class Proyecto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public Organizacion getOrganizacion() {
+        return organizacion;
+    }
+
+    public void setOrganizacion(Organizacion organizacion) {
+        this.organizacion = organizacion;
     }
 }

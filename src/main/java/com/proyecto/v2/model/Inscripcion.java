@@ -1,10 +1,10 @@
 package com.proyecto.v2.model;
 
-import com.proyecto.v2.model.util.EstadoInscripcion;
+import com.proyecto.v2.model.EstadoInscripcion;
 
 import java.util.Date;
 
-public class Inscripciones {
+public class Inscripcion {
     private Long id;
     private Voluntario voluntario;
     private Proyecto proyecto;
@@ -12,7 +12,7 @@ public class Inscripciones {
     private Date fecha_inscripcion;
     private EstadoInscripcion estado;
 
-    public Inscripciones(Long id, Voluntario voluntario, Proyecto proyecto, String motivacion, Date fecha_inscripcion, EstadoInscripcion estado) {
+    public Inscripcion(Long id, Voluntario voluntario, Proyecto proyecto, String motivacion, Date fecha_inscripcion, EstadoInscripcion estado) {
         this.id = id;
         this.voluntario = voluntario;
         this.proyecto = proyecto;

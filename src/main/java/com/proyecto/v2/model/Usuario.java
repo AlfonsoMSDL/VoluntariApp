@@ -1,6 +1,6 @@
 package com.proyecto.v2.model;
 
-import com.proyecto.v2.model.util.Rol;
+import com.proyecto.v2.model.Rol;
 
 public class Usuario {
     private Long id;
@@ -10,6 +10,9 @@ public class Usuario {
     private String clave;
     private Rol rol;
     private String nombreUsuario;
+
+    public Usuario() {
+    }
 
     public Usuario(Long id, String nombre, String correo, String telefono, String clave, Rol rol, String nombreUsuario) {
         this.id = id;
@@ -44,6 +47,16 @@ public class Usuario {
         this.correo = correo;
         this.telefono = telefono;
         this.clave = clave;
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    //Constructor para guardar un usuario
+    public Usuario(String nombre, String correo, String telefono, String clave, Rol rolInsertar, String nombreUsuario) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.clave = clave;
+        this.rol = rolInsertar;
         this.nombreUsuario = nombreUsuario;
     }
 

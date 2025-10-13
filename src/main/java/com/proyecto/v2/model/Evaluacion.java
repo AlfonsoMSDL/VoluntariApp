@@ -1,18 +1,24 @@
 package com.proyecto.v2.model;
 
+import java.sql.Date;
+
 public class Evaluacion {
     private Long id;
     private Proyecto proyecto;
     private Voluntario voluntario;
+    private Organizacion organizacion;
     private Integer calificacion;
     private String observaciones;
+    private Date fecha;
 
-    public Evaluacion(Long id, Proyecto proyecto, Voluntario voluntario, Integer calificacion, String observaciones) {
+    public Evaluacion(Long id, Proyecto proyecto, Voluntario voluntario, Organizacion organizacion, Integer calificacion, String observaciones, Date fecha) {
         this.id = id;
         this.proyecto = proyecto;
         this.voluntario = voluntario;
+        this.organizacion = organizacion;
         this.calificacion = calificacion;
         this.observaciones = observaciones;
+        this.fecha = fecha;
     }
 
     public Long getId() {
@@ -39,6 +45,14 @@ public class Evaluacion {
         this.voluntario = voluntario;
     }
 
+    public Organizacion getOrganizacion() {
+        return organizacion;
+    }
+
+    public void setOrganizacion(Organizacion organizacion) {
+        this.organizacion = organizacion;
+    }
+
     public Integer getCalificacion() {
         return calificacion;
     }
@@ -53,5 +67,13 @@ public class Evaluacion {
 
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 }

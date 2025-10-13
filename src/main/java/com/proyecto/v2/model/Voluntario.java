@@ -1,6 +1,6 @@
 package com.proyecto.v2.model;
 
-import com.proyecto.v2.model.util.Rol;
+import com.proyecto.v2.model.Rol;
 
 public class Voluntario extends Usuario {
     private String apellido;
@@ -10,6 +10,11 @@ public class Voluntario extends Usuario {
     private String areas_interes;
 
 
+    public Voluntario(Long id,String apellido) {
+        super.setId(id);
+        this.apellido = apellido;
+    }
+
     //Este constructor sera usado para actualizar
     public Voluntario(Long id, String nombre, String apellido, String correo, String telefono, String clave, String habilidades, String experiencia, String disponibilidad, String areas_interes, String nombreUsuario) {
         super(id, nombre, correo, telefono, clave,nombreUsuario);
@@ -18,22 +23,23 @@ public class Voluntario extends Usuario {
         this.disponibilidad = disponibilidad;
         this.areas_interes = areas_interes;
         this.apellido = apellido;
-        super.setRol(Rol.VOLUNTARIO);
     }
-
-    //Este constructor es para guardar los voluntarios en la bd
-    public Voluntario(String nombre, String apellido, String nombreUsuario, String correo, String clave) {
-        super(nombre,nombreUsuario,correo,clave);
-        this.apellido = apellido;
-        super.setRol(Rol.VOLUNTARIO);
-    }
-
     //Este constructor es para obtener los voluntarios de la bd
     public Voluntario(Long idVoluntario, String nombre, String apellido, String correo, String clave, String nombreUsuario,Rol rol) {
         super(idVoluntario,nombre,correo,clave,nombreUsuario,rol);
         this.apellido = apellido;
 
     }
+
+    //Este constructor es para guardar los voluntarios en la bd
+    public Voluntario(String nombre, String apellido, String nombreUsuario, String correo, String clave) {
+        super(nombre,nombreUsuario,correo,clave);
+        this.apellido = apellido;
+
+    }
+
+
+
 
     public String getHabilidades() {
         return habilidades;
@@ -85,7 +91,11 @@ public class Voluntario extends Usuario {
                 "Nombre Usuario: " + super.getNombreUsuario()+"\n"+
                 "Correo: "+super.getCorreo()+"\n"+
                 "Clave: "+ super.getClave()+"\n"+
-                "Rol: "+super.getRol().name()+"\n";
+                "Habilidades: "+this.habilidades+"\n"+
+                "Experiencia: "+this.experiencia+"\n"+
+                "Disponibilidad: "+this.disponibilidad+"\n"+
+                "Areas de interes: "+this.areas_interes+"\n";
+
 
     }
 }
