@@ -1,129 +1,127 @@
--- Tabla Organización
-CREATE TABLE organizaciones (
-                                id_organizacion SERIAL PRIMARY KEY,
-                                nombre VARCHAR(100),
-                                nombre_usuario VARCHAR(100),
-                                telefono VARCHAR(100),
-                                tipo VARCHAR(50),
-                                correo VARCHAR(100),
-                                contrasena VARCHAR(100),
-                                descripcion TEXT
+-- Tabla Roles
+CREATE TABLE roles (
+                       id SERIAL PRIMARY KEY,
+                       nombre VARCHAR(100) NOT NULL,
+                       descripcion VARCHAR(500)
 );
 
--- Tabla Voluntario
+-- Tabla Usuarios
+CREATE TABLE usuarios (
+                          id SERIAL PRIMARY KEY,
+                          nombre VARCHAR(100) NOT NULL,
+                          correo VARCHAR(100) UNIQUE NOT NULL,
+                          telefono VARCHAR(20),
+                          clave VARCHAR(255) NOT NULL,
+                          id_rol INT NOT NULL,
+                          url_imagen VARCHAR(255),
+                          nombre_usuario VARCHAR(255),
+                          FOREIGN KEY (id_rol) REFERENCES roles(id)
+);
+
+-- Tabla Tipo de Organización
+CREATE TABLE tipo_organizacion (
+                                   id SERIAL PRIMARY KEY,
+                                   tipo VARCHAR(100) NOT NULL,
+                                   descripcion VARCHAR(500)
+);
+
+-- Tabla Organizaciones
+CREATE TABLE organizaciones (
+                                id BIGINT PRIMARY KEY,
+                                tipo_organizacion_id INT NOT NULL,
+                                descripcion TEXT,
+                                FOREIGN KEY (id) REFERENCES usuarios(id),
+                                FOREIGN KEY (tipo_organizacion_id) REFERENCES tipo_organizacion(id)
+);
+
+-- Tabla Voluntarios
 CREATE TABLE voluntarios (
-                             id_voluntario SERIAL PRIMARY KEY,
-                             nombre VARCHAR(100),
-                             apellido VARCHAR(100),
-                             nombre_usuario VARCHAR(100),
-                             correo VARCHAR(100),
-                             contrasena VARCHAR(100),
-                             telefono VARCHAR(100),
+                             id BIGINT PRIMARY KEY,
+                             apellido VARCHAR(100) NOT NULL,
                              habilidades TEXT,
                              experiencia TEXT,
-                             disponibilidad VARCHAR(50),
-                             areas_interes TEXT
+                             disponibilidad VARCHAR(100),
+                             areas_interes TEXT,
+                             FOREIGN KEY (id) REFERENCES usuarios(id)
 );
 
--- Tabla Categoria
+-- Tabla Categorías
 CREATE TABLE categorias (
-                            id_categoria SERIAL PRIMARY KEY,
-                            nombre VARCHAR(50),
-                            descripcion TEXT
+                            id SERIAL PRIMARY KEY,
+                            nombre VARCHAR(100) NOT NULL,
+                            descripcion VARCHAR(500)
 );
 
--- Tabla Proyecto
+-- Tabla Proyectos
 CREATE TABLE proyectos (
-                           id_proyecto SERIAL PRIMARY KEY,
-                           id_organizacion INT REFERENCES organizaciones(id_organizacion),
-                           id_categoria INT REFERENCES categorias(id_categoria),
-                           titulo VARCHAR(100),
+                           id SERIAL PRIMARY KEY,
+                           nombre VARCHAR(100) NOT NULL,
                            descripcion TEXT,
                            ubicacion VARCHAR(100),
                            requisitos TEXT,
                            fecha_inicio DATE,
                            fecha_fin DATE,
-                           voluntarios_requeridos INT
+                           voluntarios_requeridos INT,
+                           id_categoria INT NOT NULL,
+                           url_imagen VARCHAR(255),
+                           organizacion_id INT NOT NULL,
+                           FOREIGN KEY (organizacion_id) REFERENCES organizaciones(id),
+                           FOREIGN KEY (id_categoria) REFERENCES categorias(id)
 );
 
--- Tabla Inscripción
+-- Tabla Estados de Inscripción
+CREATE TABLE estados_inscripcion (
+                                     id SERIAL PRIMARY KEY,
+                                     nombre VARCHAR(50) NOT NULL,
+                                     descripcion VARCHAR(500)
+);
+
+-- Tabla Inscripcion (Voluntario "realiza" inscripción en Proyecto)
 CREATE TABLE inscripciones (
-                               id_inscripcion SERIAL PRIMARY KEY,
-                               id_voluntario INT REFERENCES voluntarios(id_voluntario),
-                               id_proyecto INT REFERENCES proyectos(id_proyecto),
+                               id SERIAL PRIMARY KEY,
+                               voluntario_id INT NOT NULL,
+                               proyecto_id INT NOT NULL,
                                motivacion TEXT,
-                               estado VARCHAR(20),
-                               fecha_inscripcion DATE
+                               fecha_inscripcion DATE,
+                               id_estado INT NOT NULL,
+                               FOREIGN KEY (proyecto_id) REFERENCES proyectos(id),
+                               FOREIGN KEY (voluntario_id) REFERENCES voluntarios(id),
+                               FOREIGN KEY (id_estado) REFERENCES estados_inscripcion(id)
 );
 
--- Tabla Evaluación
-CREATE TABLE evaluaciones (
-                              id_evaluacion SERIAL PRIMARY KEY,
-                              id_proyecto INT REFERENCES proyectos(id_proyecto),
-                              id_voluntario INT REFERENCES voluntarios(id_voluntario),
-                              calificacion INT,
-                              observaciones TEXT
-);
-
--- Tabla Comentario
+-- Tabla Comentarios (Voluntario "hace" comentario en Proyecto)
 CREATE TABLE comentarios (
-                             id_comentario SERIAL PRIMARY KEY,
-                             id_proyecto INT REFERENCES proyectos(id_proyecto),
-                             id_voluntario INT REFERENCES voluntarios(id_voluntario),
-                             contenido TEXT,
-                             fecha_comentario DATE
+                             id SERIAL PRIMARY KEY,
+                             voluntario_id INT NOT NULL,
+                             proyecto_id INT NOT NULL,
+                             comentario TEXT,
+                             fecha_comentario DATE,
+                             FOREIGN KEY (proyecto_id) REFERENCES proyectos(id),
+                             FOREIGN KEY (voluntario_id) REFERENCES voluntarios(id)
 );
 
--- Tabla Reporte
-CREATE TABLE reportes (
-                          id_reporte SERIAL PRIMARY KEY,
-                          id_organizacion INT REFERENCES organizaciones(id_organizacion),
-                          id_proyecto INT REFERENCES proyectos(id_proyecto),
-                          tipo VARCHAR(50),
-                          contenido TEXT,
-                          fecha_reporte DATE
+-- Tabla Evaluaciones (Organización "hace" evaluación de Voluntario en Proyecto)
+CREATE TABLE evaluaciones (
+                              id SERIAL PRIMARY KEY,
+                              organizacion_id INT NOT NULL,
+                              voluntario_id INT NOT NULL,
+                              proyecto_id INT NOT NULL,
+                              calificacion INT,
+                              observaciones TEXT,
+                              fecha_evaluacion DATE,
+                              FOREIGN KEY (organizacion_id) REFERENCES organizaciones(id),
+                              FOREIGN KEY (voluntario_id) REFERENCES voluntarios(id),
+                              FOREIGN KEY (proyecto_id) REFERENCES proyectos(id)
 );
 
--- Tabla Certificado
-CREATE TABLE certificados (
-                              id_certificado SERIAL PRIMARY KEY,
-                              id_voluntario INT REFERENCES voluntarios(id_voluntario),
-                              id_proyecto INT REFERENCES proyectos(id_proyecto),
-                              fecha_emision DATE,
-                              url_documento TEXT
-);
-
--- Tabla Administrador
-CREATE TABLE administradores (
-                                 id_admin SERIAL PRIMARY KEY,
-                                 nombre VARCHAR(100),
-                                 correo VARCHAR(100),
-                                 contrasena VARCHAR(100),
-                                 rol VARCHAR(50)
-);
-
--- Tabla Rol
-CREATE TABLE roles (
-                       id_rol SERIAL PRIMARY KEY,
-                       nombre VARCHAR(50)
-);
-
--- Tabla Permiso
-CREATE TABLE permisos (
-                          id_permiso SERIAL PRIMARY KEY,
-                          nombre VARCHAR(100)
-);
-
--- Tabla RolPermiso (relación N:N entre roles y permisos)
-CREATE TABLE rol_permiso (
-                             id_rol INT REFERENCES roles(id_rol),
-                             id_permiso INT REFERENCES permisos(id_permiso),
-                             PRIMARY KEY (id_rol, id_permiso)
-);
-
--- Tabla UsuarioRol (relación N:N entre usuarios y roles)
-CREATE TABLE usuario_rol (
-                             id_usuario INT,
-                             id_rol INT REFERENCES roles(id_rol),
-                             PRIMARY KEY (id_usuario, id_rol)
+-- Tabla Participaciones (Voluntario "participa" en Proyecto)
+CREATE TABLE participaciones (
+                                 id SERIAL PRIMARY KEY,
+                                 voluntario_id INT NOT NULL,
+                                 proyecto_id INT NOT NULL,
+                                 fecha_inicio DATE,
+                                 fecha_fin DATE,
+                                 horas_realizadas NUMERIC(5,2),
+                                 FOREIGN KEY (voluntario_id) REFERENCES voluntarios(id),
+                                 FOREIGN KEY (proyecto_id) REFERENCES proyectos(id)
 );
