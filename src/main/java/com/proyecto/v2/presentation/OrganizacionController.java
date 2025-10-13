@@ -1,7 +1,6 @@
 package com.proyecto.v2.presentation;
 
 import com.proyecto.v2.model.Organizacion;
-import com.proyecto.v2.model.util.Tipo;
 import com.proyecto.v2.service.OrganizacionService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,6 +15,7 @@ import java.io.IOException;
 @WebServlet("/organizaciones")
 public class OrganizacionController extends HttpServlet {
     private final OrganizacionService organizacionService = new OrganizacionService();
+    /*
     Logger log = Logger.getLogger(OrganizacionController.class);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
@@ -83,6 +83,8 @@ public class OrganizacionController extends HttpServlet {
             log.info("Actualizado correctamente");
         }
     }
+
+     */
 
 
 }

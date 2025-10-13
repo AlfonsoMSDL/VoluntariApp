@@ -1,14 +1,5 @@
 package com.proyecto.v2.persistence;
 
-import com.proyecto.v2.model.Organizacion;
-import com.proyecto.v2.model.util.Rol;
-import com.proyecto.v2.model.util.Tipo;
-
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 public class OrganizacionDao {
     private static final String INSERT = "INSERT INTO organizaciones (nombre, nombre_usuario, correo, contrasena, rol, telefono, tipo) VALUES(?,?,?,?,?,?,?)";
     private static final String SELECT = "SELECT * FROM organizaciones";
@@ -17,6 +8,7 @@ public class OrganizacionDao {
     private static final String UPDATE = "UPDATE organizaciones SET nombre = ?, nombre_usuario = ?, correo = ?, contrasena = ?, telefono = ?, tipo = ?, descripcion = ? WHERE id_organizacion = ?";
     private static final String DELETE = "DELETE FROM organizaciones WHERE id_organizacion = ?";
 
+    /*
     public Organizacion save(Organizacion organizacion){
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -76,7 +68,7 @@ public class OrganizacionDao {
 
                 organizacion = new Organizacion(idOrganizacion,nombre,correo,clave,nombreUsuario,rol);
                 organizacion.setTelefono(telefono);
-                organizacion.setTipo(Tipo.fromString(tipo));
+                organizacion.setTipo(TipoOrganizacion.fromString(tipo));
                 organizacion.setDescripcion(descripcion);
                 organizaciones.add(organizacion);
             }
@@ -115,7 +107,7 @@ public class OrganizacionDao {
                 organizacion = new Organizacion(idOrganizacion,nombre,correo,clave,nombreUsuario,rol);
 
                 organizacion.setTelefono(telefono);
-                organizacion.setTipo(Tipo.fromString(tipo));
+                organizacion.setTipo(TipoOrganizacion.fromString(tipo));
                 organizacion.setDescripcion(descripcion);
             }
 
@@ -155,7 +147,7 @@ public class OrganizacionDao {
                 organizacion = new Organizacion(idOrganizacion,nombre,correo,clave,nombreUsuario,rol);
 
                 organizacion.setTelefono(telefono);
-                organizacion.setTipo(Tipo.fromString(tipo));
+                organizacion.setTipo(TipoOrganizacion.fromString(tipo));
                 organizacion.setDescripcion(descripcion);
 
             }
@@ -219,5 +211,7 @@ public class OrganizacionDao {
             throw new RuntimeException(e);
         }
     }
+
+     */
 
 }
