@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- Importo JSTL para usar el forEach -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.proyecto.v2.model.util.Tipo" %>
+<%@ page import="com.proyecto.v2.model.util.TipoOrganizacion" %>
+<%@ page import="com.proyecto.v2.model.util.TipoOrganizacion" %>
 
 <%
-    request.setAttribute("tipos", Tipo.values());
+    request.setAttribute("tipos", TipoOrganizacion.values());
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -19,7 +20,7 @@
     <div class="form-section">
         <h1>Crear Cuenta</h1>
 
-        <label class="tipo-usuario">¿Qué tipo de usuario eres?</label>
+        <label class="tipoOrganizacion-usuario">¿Qué tipoOrganizacion de usuario eres?</label>
         <div class="selector-rol">
             <label>
                 <input type="radio" name="rol" value="voluntario" checked>
@@ -75,10 +76,10 @@
 
                 <div class="form-group">
                     <label for="tipoOrganizacion">Tipo de Organización</label>
-                    <select id="tipoOrganizacion" name="tipo" required>
-                        <option value="">Selecciona un tipo</option>
-                        <c:forEach var="tipo" items="${tipos}" >
-                            <option value="${tipo.tipoString}">${tipo.tipoString}</option>
+                    <select id="tipoOrganizacion" name="tipoOrganizacion" required>
+                        <option value="">Selecciona un tipoOrganizacion</option>
+                        <c:forEach var="tipoOrganizacion" items="${tipos}" >
+                            <option value="${tipoOrganizacion.tipoString}">${tipoOrganizacion.tipoString}</option>
                         </c:forEach>
 
                     </select>

@@ -1,7 +1,10 @@
 <%@ page import="com.proyecto.v2.model.Voluntario" %>
+<%@ page import="com.proyecto.v2.model.Usuario" %>
+<%@ page import="com.proyecto.v2.service.VoluntarioService" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-    Voluntario voluntario = (Voluntario) session.getAttribute("usuarioLogin");
+    Usuario usuario = (Usuario) session.getAttribute("usuarioLogin");
+    Voluntario voluntario = (new VoluntarioService()).findById(usuario.getId()).get();
 
 %>
 <!DOCTYPE html>

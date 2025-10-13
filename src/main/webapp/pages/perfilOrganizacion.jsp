@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.proyecto.v2.model.util.Tipo , com.proyecto.v2.model.Organizacion" %>
+<%@ page import="com.proyecto.v2.model.util.TipoOrganizacion , com.proyecto.v2.model.Organizacion" %>
 
 <%
   //Codigo para convertir el usuario logueado a una organizacion
@@ -8,7 +8,7 @@
 
     request.setAttribute("organizacion",organizacion);
 
-    request.setAttribute("tipos", Tipo.values());
+    request.setAttribute("tipos", TipoOrganizacion.values());
 
 %>
 <!DOCTYPE html>
@@ -71,11 +71,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="tipo">Tipo de Organización *</label>
-                        <select id="tipo" name="tipo" required>
-                            <option value="">Selecciona un tipo</option>
-                            <c:forEach var="tipo" items="${tipos}" >
-                                <option value="${tipo.tipoString}">${tipo.tipoString}</option>
+                        <label for="tipoOrganizacion">Tipo de Organización *</label>
+                        <select id="tipoOrganizacion" name="tipoOrganizacion" required>
+                            <option value="">Selecciona un tipoOrganizacion</option>
+                            <c:forEach var="tipoOrganizacion" items="${tipos}" >
+                                <option value="${tipoOrganizacion.tipoString}">${tipoOrganizacion.tipoString}</option>
                             </c:forEach>
 
                         </select>
