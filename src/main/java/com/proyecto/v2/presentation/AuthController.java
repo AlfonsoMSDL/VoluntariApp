@@ -17,6 +17,7 @@ public class AuthController extends HttpServlet {
     private final AuthService authService = new AuthService();
     private static final Logger log = Logger.getLogger(AuthController.class);
 
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html; charset=UTF-8");
@@ -31,19 +32,19 @@ public class AuthController extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("usuarioLogin", usuarioLogin);
 
-            switch (usuarioLogin.getRol().name()) {
-                case "VOLUNTARIO" : resp.sendRedirect("pages/inicioVoluntario.jsp");
+            switch (usuarioLogin.getRol().getNombre()) {
+                case "Voluntario" : resp.sendRedirect("pages/inicioVoluntario.jsp");
 
                 break;
-                case "ORGANIZACION" :
+                case "Organizacion" :
                     log.info("Entro a la organizacion");
                     resp.sendRedirect("pages/inicioOrganizacion.jsp");
 
                     break;
 
-                case "ADMIN": req.getRequestDispatcher("pages/inicioAdmin.jsp").forward(req, resp);break;
+                case "Administrador": req.getRequestDispatcher("pages/inicioAdmin.jsp").forward(req, resp);break;
                 default : {
-                    log.warn("Rol desconocido: " + usuarioLogin.getRol().name());
+                    log.warn("Rol desconocido: " + usuarioLogin.getRol().getNombre());
                     resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Rol no reconocido");
                 }
             }
@@ -53,4 +54,6 @@ public class AuthController extends HttpServlet {
             resp.getWriter().println("{\"status\": \"not_found\"}");
         }
     }
+
+
 }

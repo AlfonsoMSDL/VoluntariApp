@@ -1,5 +1,6 @@
 package com.proyecto.v2.service;
 
+import com.proyecto.v2.persistence.UsuarioDao;
 import com.proyecto.v2.presentation.VoluntarioController;
 import com.proyecto.v2.model.Organizacion;
 import com.proyecto.v2.model.Usuario;
@@ -9,48 +10,23 @@ import org.apache.log4j.Logger;
 import java.util.Optional;
 
 public class AuthService {
-    private VoluntarioService voluntarioService;
-    private OrganizacionService organizacionService;
+    private final UsuarioDao usuarioDAo;
 
     Logger log = Logger.getLogger(VoluntarioController.class);
 
     public AuthService() {
-        this.voluntarioService = new VoluntarioService();
-        this.organizacionService = new OrganizacionService();
+        this.usuarioDAo = new UsuarioDao();
     }
     public Usuario Login (String correo, String clave){
 
-        Optional<Organizacion> organizacionOptional = organizacionService.findByCorreo(correo);
-        if(organizacionOptional != null && organizacionOptional.isPresent()){ //Se encontro el correo como una organizacion
-            Organizacion organizacionEncontrada = organizacionOptional.get();
-            log.info(organizacionService.findAllOrganizaciones().toString()+"\n");
-
-
-            //Compruebo si la clave que digitó es igual a la guardada en la BD
-            if(clave.equals(organizacionEncontrada.getClave())){
-                //Convierto la organizacion a un usuario para devolverla
-                Usuario usuario = organizacionEncontrada;
+        Usuario usuario = usuarioDAo.findByEmail(correo).get();
+        if(usuario != null){
+            if(clave.equals(usuario.getClave())){
                 return usuario;
             }
         }
-
-
-        //En caso de que no sea una organizacion, pregunto si es un voluntario
-        Optional<Voluntario> voluntarioOptional = voluntarioService.findByCorreo(correo);
-        if(voluntarioOptional != null && voluntarioOptional.isPresent()){ //Se encontro el correo como un voluntario
-            Voluntario voluntarioEncontrado = voluntarioOptional.get();
-            log.info(voluntarioService.findAllVoluntarios().toString()+"\n");
-
-            //Compruebo si la clave que digitó es igual a la guardada en la BD
-            if(clave.equals(voluntarioEncontrado.getClave())){
-                //Convierto la voluntario a un usuario para devolverla
-                Usuario usuario =  voluntarioEncontrado;
-                return usuario;
-            }
-
-        }
-
-        //Si ninguna de las opciones es valida, significa que no se encontró el usuario
         return null;
     }
+
+
 }
