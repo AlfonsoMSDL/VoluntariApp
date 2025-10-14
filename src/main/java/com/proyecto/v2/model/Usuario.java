@@ -60,6 +60,17 @@ public class Usuario {
         this.nombreUsuario = nombreUsuario;
     }
 
+    public void establecerValoresUsuario(Usuario usuarioGuardado) {
+        this.setNombre(usuarioGuardado.getNombre());
+        this.setCorreo(usuarioGuardado.getCorreo());
+        this.setTelefono(usuarioGuardado.getTelefono());
+        this.setRol(usuarioGuardado.getRol());
+        this.setClave(usuarioGuardado.getClave());
+        this.setNombreUsuario(usuarioGuardado.getNombreUsuario());
+
+
+    }
+
     public Long getId() {
         return id;
     }
