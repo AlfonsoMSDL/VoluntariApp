@@ -7,7 +7,7 @@ document.getElementById('profileForm').addEventListener('submit', async function
     const nombreUsuario = document.getElementById('nombreUsuario').value;
     const correo = document.getElementById('correo').value;
     const telefono = document.getElementById('telefono').value;
-    const tipo = document.getElementById('tipo').value;
+    const tipo = document.getElementById('tipoOrganizacion').value;
     const descripcion = document.getElementById('descripcion').value;
     const clave = document.getElementById('clave').value;
 

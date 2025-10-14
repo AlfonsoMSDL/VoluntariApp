@@ -1,14 +1,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.proyecto.v2.model.util.TipoOrganizacion , com.proyecto.v2.model.Organizacion" %>
+<%@ page import="com.proyecto.v2.model.TipoOrganizacion , com.proyecto.v2.model.Organizacion" %>
+<%@ page import="com.proyecto.v2.model.Usuario" %>
+<%@ page import="com.proyecto.v2.service.OrganizacionService" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.proyecto.v2.service.TipoOrganizacionService" %>
 
 <%
-  //Codigo para convertir el usuario logueado a una organizacion
-    Organizacion organizacion = (Organizacion) session.getAttribute("usuarioLogin");
+    Usuario usuario = (Usuario) session.getAttribute("usuarioLogin");
+    Organizacion organizacion = (new OrganizacionService()).findById(usuario.getId()).get();
 
-    request.setAttribute("organizacion",organizacion);
 
-    request.setAttribute("tipos", TipoOrganizacion.values());
+    List<TipoOrganizacion> tipos = (new TipoOrganizacionService()).findAll();
 
 %>
 <!DOCTYPE html>
@@ -48,34 +51,34 @@
                 <div class="form-grid">
 
                     <!-- Id para poder saber cual organizacion se va a actualizar-->
-                    <input type="hidden" value="${organizacion.id}" id="idOrganizacion" name="idOrganizacion">
+                    <input type="hidden" value="<%=organizacion.getId()%>" id="idOrganizacion" name="idOrganizacion">
 
                     <div class="form-group">
                         <label for="nombreOrganizacion">Nombre de la Organización *</label>
-                        <input type="text" id="nombreOrganizacion" name="nombreOrganizacion" value="${organizacion.nombre}" required>
+                        <input type="text" id="nombreOrganizacion" name="nombreOrganizacion" value="<%=organizacion.getNombre()%>" required>
                     </div>
 
                     <div class="form-group">
                         <label for="nombreUsuario">Nombre de Usuario *</label>
-                        <input type="text" id="nombreUsuario" name="nombreUsuario" value="${organizacion.nombreUsuario}" required>
+                        <input type="text" id="nombreUsuario" name="nombreUsuario" value="<%=organizacion.getNombreUsuario()%>" required>
                     </div>
 
                     <div class="form-group">
                         <label for="correo">Correo Electrónico *</label>
-                        <input type="email" id="correo" name="correo" value="${organizacion.correo}" required>
+                        <input type="email" id="correo" name="correo" value="<%=organizacion.getCorreo()%>" required>
                     </div>
 
                     <div class="form-group">
                         <label for="telefono">Teléfono de Contacto *</label>
-                        <input type="tel" id="telefono" name="telefono" value="${organizacion.telefono}" required>
+                        <input type="tel" id="telefono" name="telefono" value="<%=organizacion.getTelefono()%>" required>
                     </div>
 
                     <div class="form-group">
                         <label for="tipoOrganizacion">Tipo de Organización *</label>
                         <select id="tipoOrganizacion" name="tipoOrganizacion" required>
                             <option value="">Selecciona un tipoOrganizacion</option>
-                            <c:forEach var="tipoOrganizacion" items="${tipos}" >
-                                <option value="${tipoOrganizacion.tipoString}">${tipoOrganizacion.tipoString}</option>
+                            <c:forEach var="tipoOrganizacion" items="<%=tipos%>" >
+                                <option value="${tipoOrganizacion.id}">${tipoOrganizacion.nombre}</option>
                             </c:forEach>
 
                         </select>
@@ -88,7 +91,7 @@
 
                     <div class="form-group full-width">
                         <label for="descripcion">Descripción de la Organización</label>
-                        <textarea id="descripcion" name="descripcion" required>${organizacion.descripcion}</textarea>
+                        <textarea id="descripcion" name="descripcion" required><%=organizacion.getDescripcion()%></textarea>
                     </div>
                 </div>
 
