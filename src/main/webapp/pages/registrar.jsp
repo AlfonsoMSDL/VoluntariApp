@@ -1,11 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- Importo JSTL para usar el forEach -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.proyecto.v2.model.util.TipoOrganizacion" %>
-<%@ page import="com.proyecto.v2.model.util.TipoOrganizacion" %>
+<%@ page import="com.proyecto.v2.model.TipoOrganizacion" %>
+<%@ page import="com.proyecto.v2.service.TipoOrganizacionService" %>
+<%@ page import="java.util.List" %>
 
 <%
-    request.setAttribute("tipos", TipoOrganizacion.values());
+    List<TipoOrganizacion> tipos = (new TipoOrganizacionService()).findAll();
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -77,9 +78,9 @@
                 <div class="form-group">
                     <label for="tipoOrganizacion">Tipo de Organización</label>
                     <select id="tipoOrganizacion" name="tipoOrganizacion" required>
-                        <option value="">Selecciona un tipoOrganizacion</option>
-                        <c:forEach var="tipoOrganizacion" items="${tipos}" >
-                            <option value="${tipoOrganizacion.tipoString}">${tipoOrganizacion.tipoString}</option>
+                        <option value="">Selecciona un tipo de organizacion</option>
+                        <c:forEach var="tipoOrganizacion" items="<%=tipos%>" >
+                            <option value="${tipoOrganizacion.id}">${tipoOrganizacion.nombre}</option>
                         </c:forEach>
 
                     </select>
