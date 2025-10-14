@@ -11,6 +11,6 @@ INSERT INTO tipo_organizacion (tipo, descripcion) VALUES
                                                       ('Voluntariado Religioso', 'Grupo de servicio social promovido por instituciones religiosas para apoyar causas solidarias.');
 
 INSERT INTO roles (nombre, descripcion) VALUES
-                                            ("Voluntario","Usuario que quiere ayudar"),
-                                            ("Organizacion","Entidad que publica proyectos comunitarios"),
-                                            ("Administrador","Gestiona la plataforma");
+                                            ('Voluntario','Usuario que quiere ayudar'),
+                                            ('Organizacion','Entidad que publica proyectos comunitarios'),
+                                            ('Administrador','Gestiona la plataforma');
