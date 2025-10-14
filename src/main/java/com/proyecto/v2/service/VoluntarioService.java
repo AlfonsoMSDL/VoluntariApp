@@ -24,6 +24,8 @@ public class VoluntarioService {
         Usuario usuarioGuardado = usuarioDao.save(new Usuario(nombre,correo,telefono,clave,rolInsertar,nombreUsuario));
 
         Voluntario  voluntarioGuardado= voluntarioDao.save(new Voluntario(usuarioGuardado.getId(),apellido));
+
+        voluntarioGuardado.establecerValoresUsuario(usuarioGuardado);
         return voluntarioGuardado;
     }
 
