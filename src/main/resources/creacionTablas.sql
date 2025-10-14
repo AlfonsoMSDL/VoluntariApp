@@ -29,7 +29,7 @@ CREATE TABLE tipo_organizacion (
 CREATE TABLE organizaciones (
                                 id BIGINT PRIMARY KEY,
                                 tipo_organizacion_id INT NOT NULL,
-                                descripcion TEXT,
+                                descripcion TEXT default 'Sin descripción',
                                 FOREIGN KEY (id) REFERENCES usuarios(id),
                                 FOREIGN KEY (tipo_organizacion_id) REFERENCES tipo_organizacion(id)
 );
