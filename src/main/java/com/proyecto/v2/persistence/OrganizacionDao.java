@@ -1,14 +1,28 @@
 package com.proyecto.v2.persistence;
 
-public class OrganizacionDao {
-    private static final String INSERT = "INSERT INTO organizaciones (nombre, nombre_usuario, correo, contrasena, rol, telefono, tipo) VALUES(?,?,?,?,?,?,?)";
-    private static final String SELECT = "SELECT * FROM organizaciones";
-    private static final String FIND_BY_CORREO = "SELECT * FROM organizaciones WHERE correo = ?";
-    private static final String FIND_BY_ID = "SELECT * FROM organizaciones WHERE id_organizacion = ?";
-    private static final String UPDATE = "UPDATE organizaciones SET nombre = ?, nombre_usuario = ?, correo = ?, contrasena = ?, telefono = ?, tipo = ?, descripcion = ? WHERE id_organizacion = ?";
-    private static final String DELETE = "DELETE FROM organizaciones WHERE id_organizacion = ?";
+import com.proyecto.v2.model.Organizacion;
+import com.proyecto.v2.model.Rol;
+import com.proyecto.v2.model.TipoOrganizacion;
+import com.proyecto.v2.model.Usuario;
 
-    /*
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+public class OrganizacionDao {
+    private static final String INSERT = "INSERT INTO organizaciones (id,tipo_organizacion_id) VALUES(?,?)";
+    private static final String SELECT = "SELECT u.id, u.nombre, u.correo, u.clave, u.nombre_usuario,u.id_rol,u.telefono, o.tipo_organizacion_id, o.descripcion  FROM usuarios u JOIN organizaciones o on u.id = o.id";
+    private static final String FIND_BY_CORREO = "SELECT u.id, u.nombre, u.correo, u.clave, u.nombre_usuario,u.id_rol,u.telefono, o.tipo_organizacion_id, o.descripcion  FROM usuarios u JOIN organizaciones o on u.id = o.id WHERE u.correo = ?";
+    private static final String FIND_BY_ID = "SELECT u.id, u.nombre, u.correo, u.clave, u.nombre_usuario,u.id_rol,u.telefono, o.tipo_organizacion_id, o.descripcion  FROM usuarios u JOIN organizaciones o on u.id = o.id WHERE u.id = ?";
+    private static final String UPDATE = "UPDATE organizaciones SET tipo_organizacion_id = ?, descripcion = ? WHERE id = ?";
+    private static final String DELETE = "DELETE FROM organizaciones WHERE id_organizacion = ?";
+    private final UsuarioDao usuarioDao = new UsuarioDao();
+
+    RolDao  rolDao = new RolDao();
+    TipoOrganizacionDao  tipoOrganizacionDao = new TipoOrganizacionDao();
+
+
     public Organizacion save(Organizacion organizacion){
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -17,13 +31,9 @@ public class OrganizacionDao {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 
-            stmt.setString(1,organizacion.getNombre());
-            stmt.setString(2,organizacion.getNombreUsuario());
-            stmt.setString(3,organizacion.getCorreo());
-            stmt.setString(4,organizacion.getClave());
-            stmt.setString(5,organizacion.getRol().name());
-            stmt.setString(6,organizacion.getTelefono());
-            stmt.setString(7,organizacion.getTipo().getTipoString());
+            stmt.setLong(1,organizacion.getId());
+            stmt.setLong(2,organizacion.getTipo().getId());
+
 
             int registrosAfectados = stmt.executeUpdate();
 
@@ -42,6 +52,8 @@ public class OrganizacionDao {
         }
     }
 
+
+
     public List<Organizacion> findAll(){
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -55,21 +67,22 @@ public class OrganizacionDao {
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
-                Long idOrganizacion = rs.getLong("id_organizacion");
+                Long idOrganizacion = rs.getLong("id");
                 String nombre = rs.getString("nombre");
-                String nombreUsuario = rs.getString("nombre_usuario");
                 String correo = rs.getString("correo");
-                String clave = rs.getString("contrasena");
-                Rol rol = Rol.obtenerRol(rs.getString("rol"));
+                String clave = rs.getString("clave");
+                String nombreUsuario = rs.getString("nombre_usuario");
+                Rol rol = rolDao.findById(rs.getLong("id_rol")).get();
                 String telefono = rs.getString("telefono");
-                String tipo = rs.getString("tipo");
+                TipoOrganizacion tipo = tipoOrganizacionDao.findById( rs.getLong("tipo_organizacion_id")).get();
                 String descripcion = rs.getString("descripcion");
 
 
                 organizacion = new Organizacion(idOrganizacion,nombre,correo,clave,nombreUsuario,rol);
                 organizacion.setTelefono(telefono);
-                organizacion.setTipo(TipoOrganizacion.fromString(tipo));
+                organizacion.setTipo(tipo);
                 organizacion.setDescripcion(descripcion);
+
                 organizaciones.add(organizacion);
             }
 
@@ -81,6 +94,7 @@ public class OrganizacionDao {
             throw new RuntimeException(e);
         }
     }
+
 
     public Optional<Organizacion> findByCorreo(String correoBuscar){
         Connection conn;
@@ -94,20 +108,20 @@ public class OrganizacionDao {
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()){
-                Long idOrganizacion = rs.getLong("id_organizacion");
+                Long idOrganizacion = rs.getLong("id");
                 String nombre = rs.getString("nombre");
-                String nombreUsuario = rs.getString("nombre_usuario");
                 String correo = rs.getString("correo");
-                String clave = rs.getString("contrasena");
-                Rol rol = Rol.obtenerRol(rs.getString("rol"));
+                String clave = rs.getString("clave");
+                String nombreUsuario = rs.getString("nombre_usuario");
+                Rol rol = rolDao.findById(rs.getLong("id_rol")).get();
                 String telefono = rs.getString("telefono");
-                String tipo = rs.getString("tipo");
+                TipoOrganizacion tipo = tipoOrganizacionDao.findById( rs.getLong("tipo_organizacion_id")).get();
                 String descripcion = rs.getString("descripcion");
 
-                organizacion = new Organizacion(idOrganizacion,nombre,correo,clave,nombreUsuario,rol);
 
+                organizacion = new Organizacion(idOrganizacion,nombre,correo,clave,nombreUsuario,rol);
                 organizacion.setTelefono(telefono);
-                organizacion.setTipo(TipoOrganizacion.fromString(tipo));
+                organizacion.setTipo(tipo);
                 organizacion.setDescripcion(descripcion);
             }
 
@@ -134,20 +148,20 @@ public class OrganizacionDao {
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()){
-                Long idOrganizacion = rs.getLong("id_organizacion");
+                Long idOrganizacion = rs.getLong("id");
                 String nombre = rs.getString("nombre");
-                String nombreUsuario = rs.getString("nombre_usuario");
                 String correo = rs.getString("correo");
-                String clave = rs.getString("contrasena");
-                Rol rol = Rol.obtenerRol(rs.getString("rol"));
+                String clave = rs.getString("clave");
+                String nombreUsuario = rs.getString("nombre_usuario");
+                Rol rol = rolDao.findById(rs.getLong("id_rol")).get();
                 String telefono = rs.getString("telefono");
-                String tipo = rs.getString("tipo");
+                TipoOrganizacion tipo = tipoOrganizacionDao.findById( rs.getLong("tipo_organizacion_id")).get();
                 String descripcion = rs.getString("descripcion");
 
-                organizacion = new Organizacion(idOrganizacion,nombre,correo,clave,nombreUsuario,rol);
 
+                organizacion = new Organizacion(idOrganizacion,nombre,correo,clave,nombreUsuario,rol);
                 organizacion.setTelefono(telefono);
-                organizacion.setTipo(TipoOrganizacion.fromString(tipo));
+                organizacion.setTipo(tipo);
                 organizacion.setDescripcion(descripcion);
 
             }
@@ -162,23 +176,25 @@ public class OrganizacionDao {
         }
     }
 
+
     // Modificar
     public Organizacion update(Organizacion organizacion){
         Connection conn;
         PreparedStatement stmt;
 
         try{
+
+            //Primero actualizo los datos para el usuario
+            Usuario usuario = organizacion;
+            usuarioDao.update(usuario);
+
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(UPDATE);
 
-            stmt.setString(1, organizacion.getNombre());
-            stmt.setString(2, organizacion.getNombreUsuario());
-            stmt.setString(3, organizacion.getCorreo());
-            stmt.setString(4, organizacion.getClave());
-            stmt.setString(5, organizacion.getTelefono());
-            stmt.setString(6, organizacion.getTipo().getTipoString());
-            stmt.setString(7, organizacion.getDescripcion());
-            stmt.setLong(8, organizacion.getId());
+            stmt.setLong(1, organizacion.getTipo().getId());
+            stmt.setString(2, organizacion.getDescripcion());
+
+            stmt.setLong(3, organizacion.getId());
 
             int registrosAfectados = stmt.executeUpdate();
 
@@ -191,6 +207,7 @@ public class OrganizacionDao {
         }
     }
 
+    /*
     // 🔹 Eliminar por ID
     public boolean deleteById(Long id){
         Connection conn;

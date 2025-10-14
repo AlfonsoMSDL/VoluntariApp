@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet("/organizaciones")
 public class OrganizacionController extends HttpServlet {
     private final OrganizacionService organizacionService = new OrganizacionService();
-    /*
+
     Logger log = Logger.getLogger(OrganizacionController.class);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
@@ -46,14 +46,13 @@ public class OrganizacionController extends HttpServlet {
         String correo = req.getParameter("emailOrganizacion");
         String clave = req.getParameter("clave");
         String telefono = req.getParameter("telefono");
-        String tipo =  req.getParameter("tipo");
+        Long idTipo = Long.parseLong(req.getParameter("tipo"));
 
 
-
-        Organizacion resultado = organizacionService.save(nombre,nombreUsuario,correo,clave,telefono,tipo);
+        Organizacion resultado = organizacionService.save(nombre,nombreUsuario,correo,clave,telefono,idTipo);
 
         if(resultado != null){
-            log.info(resultado);
+
             log.info("Organizacion guardada correctamente\n");
             log.info(organizacionService.findAllOrganizaciones().toString());
             resp.getWriter().println(resultado);
@@ -68,11 +67,11 @@ public class OrganizacionController extends HttpServlet {
         String correo = req.getParameter("correo");
         String clave = req.getParameter("clave");
         String telefono = req.getParameter("telefono");
-        String tipo =  req.getParameter("tipo");
+        Long id_tipo = Long.parseLong( req.getParameter("tipo"));
         Long idOrganizacion = Long.parseLong(req.getParameter("idOrganizacion"));
         String descripcion = req.getParameter("descripcion");
 
-        Organizacion actualizado = organizacionService.update(idOrganizacion,nombre,correo,telefono,clave, tipo,descripcion,nombreUsuario);
+        Organizacion actualizado = organizacionService.update(idOrganizacion,nombre,correo,telefono,clave, id_tipo,descripcion,nombreUsuario);
 
         if(actualizado != null){
             resp.getWriter().println("{\"mensaje\":\"Actualizado correctamente\"}");
@@ -84,7 +83,7 @@ public class OrganizacionController extends HttpServlet {
         }
     }
 
-     */
+
 
 
 }

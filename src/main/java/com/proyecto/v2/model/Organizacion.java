@@ -32,6 +32,11 @@ public class Organizacion extends Usuario{
 
     }
 
+    public Organizacion(Long id, TipoOrganizacion tipoOrganizacion) {
+        super.setId(id);
+        this.tipoOrganizacion = tipoOrganizacion;
+    }
+
     public TipoOrganizacion getTipo() {
         return tipoOrganizacion;
     }
@@ -54,11 +59,14 @@ public class Organizacion extends Usuario{
                 "Id: " + getId() + "\n" +
                 "Nombre: " + super.getNombre() + "\n"+
                 "Nombre Usuario: " + super.getNombreUsuario()+"\n"+
+                "Rol: "+super.getRol().getNombre()+"\n"+
                 "Telefono: "+super.getTelefono()+"\n"+
-                "TipoOrganizacion: "+ tipoOrganizacion +"\n"+
+                "TipoOrganizacion: "+ tipoOrganizacion.getNombre() +"\n"+
                 "Correo: "+super.getCorreo()+"\n"+
-                "Clave: "+ super.getClave()+"\n";
+                "Clave: "+ super.getClave()+"\n"+
+                "Descripcion: "+descripcion+"\n";
 
     }
+
 
 }
