@@ -23,7 +23,7 @@
         <h2 class="titulo-menu">MENÚ</h2>
         <ul class="lista-opciones">
             <li><a href="perfilOrganizacion.jsp"><span class="material-icons">account_circle</span> Perfil</a></li>
-            <li><a href="#"><span class="material-icons">work</span> Proyectos</a></li>
+            <li><a href="listarProyectos.jsp"><span class="material-icons">work</span> Proyectos</a></li>
             <li><a href="#"><span class="material-icons">notifications</span> Notificaciones</a></li>
             <li><a href="#"><span class="material-icons">assignment</span> Inscripciones</a></li>
             <li><a href="#"><span class="material-icons">report</span> Reportes</a></li>
