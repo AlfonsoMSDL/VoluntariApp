@@ -63,8 +63,7 @@ CREATE TABLE proyectos (
                            fecha_fin DATE,
                            voluntarios_requeridos INT,
                            id_categoria INT NOT NULL,
-                           url_imagen VARCHAR(255),
-                           organizacion_id INT NOT NULL,
+                           organizacion_id BIGINT NOT NULL,
                            FOREIGN KEY (organizacion_id) REFERENCES organizaciones(id),
                            FOREIGN KEY (id_categoria) REFERENCES categorias(id)
 );
@@ -79,7 +78,7 @@ CREATE TABLE estados_inscripcion (
 -- Tabla Inscripcion (Voluntario "realiza" inscripción en Proyecto)
 CREATE TABLE inscripciones (
                                id SERIAL PRIMARY KEY,
-                               voluntario_id INT NOT NULL,
+                               voluntario_id BIGINT NOT NULL,
                                proyecto_id INT NOT NULL,
                                motivacion TEXT,
                                fecha_inscripcion DATE,
@@ -92,7 +91,7 @@ CREATE TABLE inscripciones (
 -- Tabla Comentarios (Voluntario "hace" comentario en Proyecto)
 CREATE TABLE comentarios (
                              id SERIAL PRIMARY KEY,
-                             voluntario_id INT NOT NULL,
+                             voluntario_id BIGINT NOT NULL,
                              proyecto_id INT NOT NULL,
                              comentario TEXT,
                              fecha_comentario DATE,
@@ -103,8 +102,8 @@ CREATE TABLE comentarios (
 -- Tabla Evaluaciones (Organización "hace" evaluación de Voluntario en Proyecto)
 CREATE TABLE evaluaciones (
                               id SERIAL PRIMARY KEY,
-                              organizacion_id INT NOT NULL,
-                              voluntario_id INT NOT NULL,
+                              organizacion_id BIGINT NOT NULL,
+                              voluntario_id BIGINT NOT NULL,
                               proyecto_id INT NOT NULL,
                               calificacion INT,
                               observaciones TEXT,
@@ -117,7 +116,7 @@ CREATE TABLE evaluaciones (
 -- Tabla Participaciones (Voluntario "participa" en Proyecto)
 CREATE TABLE participaciones (
                                  id SERIAL PRIMARY KEY,
-                                 voluntario_id INT NOT NULL,
+                                 voluntario_id BIGINT NOT NULL,
                                  proyecto_id INT NOT NULL,
                                  fecha_inicio DATE,
                                  fecha_fin DATE,
