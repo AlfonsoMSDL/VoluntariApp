@@ -1,6 +1,18 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.proyecto.v2.model.TipoOrganizacion , com.proyecto.v2.model.Organizacion" %>
+<%@ page import="com.proyecto.v2.model.Usuario" %>
+<%@ page import="com.proyecto.v2.service.OrganizacionService" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.proyecto.v2.service.TipoOrganizacionService" %>
+<%
+    Usuario usuario = (Usuario) session.getAttribute("usuarioLogin");
+    Organizacion organizacion = (new OrganizacionService()).findById(usuario.getId()).get();
 
+
+    List<TipoOrganizacion> tipos = (new TipoOrganizacionService()).findAll();
+
+%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
