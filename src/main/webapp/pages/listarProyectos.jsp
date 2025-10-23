@@ -1,16 +1,19 @@
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.proyecto.v2.model.TipoOrganizacion , com.proyecto.v2.model.Organizacion" %>
 <%@ page import="com.proyecto.v2.model.Usuario" %>
 <%@ page import="com.proyecto.v2.service.OrganizacionService" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.proyecto.v2.service.TipoOrganizacionService" %>
+<%@ page import="com.proyecto.v2.service.ProyectoService" %>
+<%@ page import="com.proyecto.v2.model.Proyecto" %>
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuarioLogin");
     Organizacion organizacion = (new OrganizacionService()).findById(usuario.getId()).get();
 
-
-    List<TipoOrganizacion> tipos = (new TipoOrganizacionService()).findAll();
+    ProyectoService proyectoService = new ProyectoService();
+    List<Proyecto> proyectos = proyectoService.findAllProyectosByOrganizacion(organizacion.getId());
 
 %>
 <!DOCTYPE html>
@@ -31,10 +34,16 @@
         <div class="content-box">
             <h2 class="section-title">MIS PROYECTOS</h2>
             <div class="projects-list" id="projectsList">
-                <!-- Los proyectos se cargarán aquí -->
+
+                <c:forEach var="proyecto" items="<%=proyectos%>" >
+                    <div class="project-item">
+                        <a href="class=project-link"> ${proyecto.nombre} </a>
+                    </div>
+
+                </c:forEach>
+
             </div>
         </div>
     </div>
-    <script src="../js/listarProyectos.js"></script>
 </body>
 </html>

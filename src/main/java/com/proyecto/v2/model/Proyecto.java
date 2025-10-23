@@ -2,7 +2,7 @@ package com.proyecto.v2.model;
 
 import com.proyecto.v2.model.Categoria;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Proyecto {
     private Long id;
@@ -107,5 +107,21 @@ public class Proyecto {
 
     public void setOrganizacion(Organizacion organizacion) {
         this.organizacion = organizacion;
+    }
+
+    @Override
+    public String toString() {
+        return "Proyecto{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", ubicacion='" + ubicacion + '\'' +
+                ", requisitos='" + requisitos + '\'' +
+                ", fecha_inicio=" + fecha_inicio +
+                ", fecha_fin=" + fecha_fin +
+                ", voluntarios_requeridos=" + voluntarios_requeridos +
+                ", categoria=" + categoria +
+                ", organizacion=" + organizacion +
+                '}';
     }
 }
