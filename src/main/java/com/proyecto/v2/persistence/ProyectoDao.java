@@ -12,6 +12,21 @@ import java.util.List;
 public class ProyectoDao {
 
     private static final String SELECT_BY_ORGANIZACION = "SELECT * FROM proyectos WHERE id = ?";
+    private static final String INSERT = "INSERT INTO productos (nombre, descripcion, ubicacion, requisitos, fecha_inicio, fecha_fin, voluntarios_requeridos, id_categoria, id_organizacion) VALUES (?,?,?,?,?,?,?,?,?)";
+
+
+    public Proyecto save(Proyecto proyecto) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareStatement(INSERT,Statement.RETURN_GENERATED_KEYS);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 
     public List<Proyecto> findAllProyectosByOrganizacion(Long idOrganizacion){
         Connection connection ;
@@ -59,12 +74,8 @@ public class ProyectoDao {
 
     }
 
-    public static void main(String[] args) {
-        ProyectoDao  proyectoDao= new ProyectoDao();
 
-        List<Proyecto> proyectos = proyectoDao.findAllProyectosByOrganizacion(1L);
 
-        System.out.println(proyectos);
-    }
+
 
 }
