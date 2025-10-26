@@ -50,9 +50,9 @@ public class ProyectoController extends HttpServlet {
 
         Proyecto resultado = proyectoService.save(nombre,descripcion,ubicacion,requisitos,fechaInicio,fechaFin, voluntarios_requeridos,idCategoria,idOrganizacion);
         if(resultado != null){
-            resp.getWriter().println(resultado);
+            resp.getWriter().println("{\"status\": \"success\"}");
         }else{
-            resp.getWriter().println("{\"error\": \"Acción no válida\"}");
+            resp.getWriter().println("{\"status\": \"error\"}");
         }
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ProyectoDao {
 
-    private static final String SELECT_BY_ORGANIZACION = "SELECT * FROM proyectos WHERE id = ?";
+    private static final String SELECT_BY_ORGANIZACION = "SELECT * FROM proyectos WHERE organizacion_id = ?";
     private static final String INSERT = "INSERT INTO proyectos (nombre, descripcion, ubicacion, requisitos, fecha_inicio, fecha_fin, voluntarios_requeridos, id_categoria, organizacion_id) VALUES (?,?,?,?,?,?,?,?,?)";
     private static final String UPDATE = "UPDATE proyectos SET nombre = ?, descripcion = ?, ubicacion = ?, requisitos = ?, fecha_inicio = ?, fecha_fin = ?, voluntarios_requeridos = ?, id_categoria = ? WHERE id = ?";
 

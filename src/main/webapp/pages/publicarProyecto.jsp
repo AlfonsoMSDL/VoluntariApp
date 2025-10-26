@@ -37,7 +37,8 @@
 
         <form id="proyectoForm" onsubmit="publicarProyecto(event)">
 
-            <input type="hidden" id="idOrganizacion" value="<%=organizacion.getId()%>">
+            <input type="hidden" id="idOrganizacion" name="idOrganizacion" value="<%=organizacion.getId()%>">
+            <input type="hidden" name="action" value="save">
             <div class="form-row">
                 <div class="form-group">
                     <label for="nombre" class="required">Nombre del Proyecto</label>
@@ -66,7 +67,7 @@
                     <input
                             type="number"
                             id="voluntarios"
-                            name="voluntarios"
+                            name="voluntariosRequeridos"
                             placeholder="Cantidad requerida"
                             min="1"
                             required
@@ -77,7 +78,7 @@
                     <label for="categoria" class="required">Categoría</label>
 
 
-                    <select id="categoria" name="categoria" required>
+                    <select id="categoria" name="idCategoria" required>
                         <option value="">Seleccionar categoría</option>
                         <c:forEach var="categoria" items="<%=categorias%>">
                             <option value="${categoria.id}">${categoria.nombre}</option>

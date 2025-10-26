@@ -49,7 +49,7 @@ function publicarProyecto(event) {
     console.log('Datos del formulario:', urlEncodedData);
 
     // Enviar datos al backend como application/x-www-form-urlencoded
-    fetch('http://localhost:8080/api/proyectos', { // Cambia la URL a tu endpoint
+    fetch('http://localhost:8181/voluntariApp/proyectos', { // Cambia la URL a tu endpoint
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -66,7 +66,7 @@ function publicarProyecto(event) {
             console.log('Respuesta del servidor:', data);
 
             // Verificar si se publicó correctamente
-            if (data.success || data.publicado || data.status === 'success') {
+            if (data.status == "success" ) {
                 // Mostrar mensaje de éxito
                 const successMsg = document.getElementById('successMessage');
                 successMsg.textContent = data.mensaje || '✓ Proyecto publicado exitosamente';
@@ -83,7 +83,7 @@ function publicarProyecto(event) {
                 }, 3000);
             } else {
                 // Error reportado por el servidor
-                alert(data.mensaje || 'Error al publicar el proyecto');
+                alert(data.error || 'Error al publicar el proyecto');
             }
         })
         .catch(error => {
