@@ -79,7 +79,7 @@ public class OrganizacionController extends HttpServlet {
             req.getSession().setAttribute("usuarioLogin",actualizado);
         }else{
             resp.getWriter().println("{\"mensaje\":\"Hubo un error actualizando\"}");
-            log.info("Actualizado correctamente");
+            log.info("Hubo un error actualizando");
         }
     }
 

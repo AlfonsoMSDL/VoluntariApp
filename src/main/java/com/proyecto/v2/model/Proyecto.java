@@ -29,6 +29,30 @@ public class Proyecto {
         this.organizacion = organizacion;
     }
 
+    public Proyecto(String nombre, String descripcion, String ubicacion, String requisitos, Date fecha_inicio, Date fecha_fin, Integer voluntarios_requeridos, Categoria categoria, Organizacion organizacion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.ubicacion = ubicacion;
+        this.requisitos = requisitos;
+        this.fecha_inicio = fecha_inicio;
+        this.fecha_fin = fecha_fin;
+        this.voluntarios_requeridos = voluntarios_requeridos;
+        this.categoria = categoria;
+        this.organizacion = organizacion;
+    }
+
+    public Proyecto(Long id, String nombre, String descripcion, String ubicacion, String requisitos, Date fecha_inicio, Date fecha_fin, Integer voluntarios_requeridos, Categoria categoria) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.ubicacion = ubicacion;
+        this.requisitos = requisitos;
+        this.fecha_inicio = fecha_inicio;
+        this.fecha_fin = fecha_fin;
+        this.voluntarios_requeridos = voluntarios_requeridos;
+        this.categoria = categoria;
+    }
+
     public Long getId() {
         return id;
     }

@@ -12,8 +12,8 @@ import java.util.List;
 public class ProyectoDao {
 
     private static final String SELECT_BY_ORGANIZACION = "SELECT * FROM proyectos WHERE id = ?";
-    private static final String INSERT = "INSERT INTO productos (nombre, descripcion, ubicacion, requisitos, fecha_inicio, fecha_fin, voluntarios_requeridos, id_categoria, id_organizacion) VALUES (?,?,?,?,?,?,?,?,?)";
-
+    private static final String INSERT = "INSERT INTO proyectos (nombre, descripcion, ubicacion, requisitos, fecha_inicio, fecha_fin, voluntarios_requeridos, id_categoria, organizacion_id) VALUES (?,?,?,?,?,?,?,?,?)";
+    private static final String UPDATE = "UPDATE proyectos SET nombre = ?, descripcion = ?, ubicacion = ?, requisitos = ?, fecha_inicio = ?, fecha_fin = ?, voluntarios_requeridos = ?, id_categoria = ? WHERE id = ?";
 
     public Proyecto save(Proyecto proyecto) {
         Connection conn = null;
@@ -22,10 +22,31 @@ public class ProyectoDao {
         try {
             conn = Conexion.getConnection();
             ps = conn.prepareStatement(INSERT,Statement.RETURN_GENERATED_KEYS);
+
+            ps.setString(1, proyecto.getNombre());
+            ps.setString(2,proyecto.getDescripcion());
+            ps.setString(3,proyecto.getUbicacion());
+            ps.setString(4,proyecto.getRequisitos());
+            ps.setDate(5,proyecto.getFecha_inicio());
+            ps.setDate(6,proyecto.getFecha_fin());
+            ps.setInt(7,proyecto.getVoluntarios_requeridos());
+            ps.setLong(8,proyecto.getCategoria().getId());
+            ps.setLong(9,proyecto.getOrganizacion().getId());
+
+            int registrosAfectados = ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+            if(rs.next()){
+                proyecto.setId(rs.getLong(1));
+            }
+            Conexion.close(rs);
+            Conexion.close(ps);
+            Conexion.close(conn);
+            return registrosAfectados !=0 ? proyecto : null;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 
     public List<Proyecto> findAllProyectosByOrganizacion(Long idOrganizacion){
@@ -74,8 +95,34 @@ public class ProyectoDao {
 
     }
 
+    public Proyecto update(Proyecto proyecto){
+        Connection conn;
+        PreparedStatement stmt;
 
+        try{
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(UPDATE);
 
+            stmt.setString(1, proyecto.getNombre());
+            stmt.setString(2, proyecto.getDescripcion());
+            stmt.setString(3, proyecto.getUbicacion());
+            stmt.setString(4, proyecto.getRequisitos());
+            stmt.setDate(5,proyecto.getFecha_inicio());
+            stmt.setDate(6,proyecto.getFecha_fin());
+            stmt.setInt(7,proyecto.getVoluntarios_requeridos());
+            stmt.setLong(8,proyecto.getCategoria().getId());
 
+            stmt.setLong(9,proyecto.getId());
 
+            int registrosAfectados = stmt.executeUpdate();
+
+            Conexion.close(conn);
+            Conexion.close(stmt);
+
+            return registrosAfectados > 0 ? proyecto : null;
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
 }
