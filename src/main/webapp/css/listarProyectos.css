@@ -34,6 +34,7 @@
         }
 
         .btn-crear {
+            text-decoration: none;
             background: white;
             color: #2e7d32;
             padding: 12px 30px;

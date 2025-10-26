@@ -28,7 +28,7 @@
     <div class="container">
         <div class="header">
             <h1>Gestión de Proyectos</h1>
-            <button class="btn-crear" onclick="crearProyecto()">+ Crear Proyecto</button>
+            <a href="publicarProyecto.jsp" class="btn-crear" >+ Crear Proyecto</a>
         </div>
 
         <div class="content-box">
