@@ -1,5 +1,8 @@
 package com.proyecto.v2.presentation;
 
+import com.proyecto.v2.dto.response.GetOrganizacion;
+import com.proyecto.v2.dto.response.GetVoluntario;
+import com.proyecto.v2.mapper.JsonMapper;
 import com.proyecto.v2.model.Voluntario;
 import com.proyecto.v2.service.VoluntarioService;
 import jakarta.servlet.ServletException;
@@ -15,6 +18,7 @@ import java.io.IOException;
 public class VoluntarioController extends HttpServlet {
     private final VoluntarioService voluntarioService = new VoluntarioService();
     Logger log = Logger.getLogger(VoluntarioController.class);
+    private JsonMapper<GetVoluntario> jsonMapperVol = new JsonMapper();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -42,7 +46,23 @@ public class VoluntarioController extends HttpServlet {
 
     }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json");
 
+        String accion = req.getParameter("action");
+
+        if(accion == null) accion = "default";
+        switch (accion) {
+            case "getById":
+                obtenerVoluntarioPorId(req,resp);
+                break;
+            default:
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                break;
+
+        }
+    }
 
     private void guardarVoluntario(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String nombre = req.getParameter("nombre");
@@ -103,6 +123,21 @@ public class VoluntarioController extends HttpServlet {
             resp.getWriter().println("{\"mensaje\":\"No se pudo actualizar\"}");
             log.info("No se pudo actualizar");
         }
+
+
+    }
+
+    private void obtenerVoluntarioPorId(HttpServletRequest req, HttpServletResponse resp) {
+        Long idOrganizacion = Long.parseLong(req.getParameter("idVoluntario"));
+        GetVoluntario voluntarioDto = voluntarioService.findById(idOrganizacion);
+
+        String voluntarioJson = jsonMapperVol.toJson(voluntarioDto);
+
+        try {
+            resp.getWriter().println(voluntarioJson);
+        } catch (IOException e) {}
+
+
 
 
     }

@@ -37,11 +37,11 @@ public class Organizacion extends Usuario{
         this.tipoOrganizacion = tipoOrganizacion;
     }
 
-    public TipoOrganizacion getTipo() {
+    public TipoOrganizacion getTipoOrganizacion() {
         return tipoOrganizacion;
     }
 
-    public void setTipo(TipoOrganizacion tipoOrganizacion) {
+    public void setTipoOrganizacion(TipoOrganizacion tipoOrganizacion) {
         this.tipoOrganizacion = tipoOrganizacion;
     }
 

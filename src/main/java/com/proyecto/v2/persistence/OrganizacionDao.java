@@ -32,7 +32,7 @@ public class OrganizacionDao {
             stmt = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 
             stmt.setLong(1,organizacion.getId());
-            stmt.setLong(2,organizacion.getTipo().getId());
+            stmt.setLong(2,organizacion.getTipoOrganizacion().getId());
 
 
             int registrosAfectados = stmt.executeUpdate();
@@ -80,7 +80,7 @@ public class OrganizacionDao {
 
                 organizacion = new Organizacion(idOrganizacion,nombre,correo,clave,nombreUsuario,rol);
                 organizacion.setTelefono(telefono);
-                organizacion.setTipo(tipo);
+                organizacion.setTipoOrganizacion(tipo);
                 organizacion.setDescripcion(descripcion);
 
                 organizaciones.add(organizacion);
@@ -121,7 +121,7 @@ public class OrganizacionDao {
 
                 organizacion = new Organizacion(idOrganizacion,nombre,correo,clave,nombreUsuario,rol);
                 organizacion.setTelefono(telefono);
-                organizacion.setTipo(tipo);
+                organizacion.setTipoOrganizacion(tipo);
                 organizacion.setDescripcion(descripcion);
             }
 
@@ -161,7 +161,7 @@ public class OrganizacionDao {
 
                 organizacion = new Organizacion(idOrganizacion,nombre,correo,clave,nombreUsuario,rol);
                 organizacion.setTelefono(telefono);
-                organizacion.setTipo(tipo);
+                organizacion.setTipoOrganizacion(tipo);
                 organizacion.setDescripcion(descripcion);
 
             }
@@ -191,7 +191,7 @@ public class OrganizacionDao {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(UPDATE);
 
-            stmt.setLong(1, organizacion.getTipo().getId());
+            stmt.setLong(1, organizacion.getTipoOrganizacion().getId());
             stmt.setString(2, organizacion.getDescripcion());
 
             stmt.setLong(3, organizacion.getId());

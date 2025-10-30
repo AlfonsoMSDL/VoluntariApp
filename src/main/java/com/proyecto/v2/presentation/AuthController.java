@@ -1,5 +1,7 @@
 package com.proyecto.v2.presentation;
 
+import com.proyecto.v2.dto.response.GetUsuario;
+import com.proyecto.v2.mapper.JsonMapper;
 import com.proyecto.v2.model.Usuario;
 import com.proyecto.v2.service.AuthService;
 import jakarta.servlet.ServletException;
@@ -16,42 +18,32 @@ import java.io.IOException;
 public class AuthController extends HttpServlet {
     private final AuthService authService = new AuthService();
     private static final Logger log = Logger.getLogger(AuthController.class);
+    private JsonMapper<GetUsuario> jsonMapper = new JsonMapper();
 
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html; charset=UTF-8");
+        log.info("Iniciando el proceso de post");
+        resp.setContentType("application/json; charset=UTF-8");
 
         String correo = req.getParameter("correo");
         String clave = req.getParameter("clave");
 
-        Usuario usuarioLogin = authService.Login(correo, clave);
+        GetUsuario usuarioLogin = authService.Login(correo, clave);
 
         if (usuarioLogin != null) {
-            log.info("Usuario logueado: " + usuarioLogin.getCorreo() + " | Rol: " + usuarioLogin.getRol());
+            log.info("Usuario logueado: " + usuarioLogin.correo() + " | Rol: " + usuarioLogin.rol().nombre()+" | Nombre usuario: "+usuarioLogin.nombreUsuario());
             HttpSession session = req.getSession();
             session.setAttribute("usuarioLogin", usuarioLogin);
+            String jsonResponse = jsonMapper.toJson(usuarioLogin);
 
-            switch (usuarioLogin.getRol().getNombre()) {
-                case "Voluntario" : resp.sendRedirect("pages/inicioVoluntario.jsp");
+            resp.getWriter().println(jsonResponse);
 
-                break;
-                case "Organizacion" :
-                    log.info("Entro a la organizacion");
-                    resp.sendRedirect("pages/inicioOrganizacion.jsp");
 
-                    break;
 
-                case "Administrador": req.getRequestDispatcher("pages/inicioAdmin.jsp").forward(req, resp);break;
-                default : {
-                    log.warn("Rol desconocido: " + usuarioLogin.getRol().getNombre());
-                    resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Rol no reconocido");
-                }
-            }
         } else {
             log.warn("Intento de login con credenciales inválidas: " + correo);
-            resp.setContentType("application/json");
-            resp.getWriter().println("{\"status\": \"not_found\"}");
+            resp.getWriter().println("{\"error\": \"Credenciales invalidas\"}");
         }
     }
 

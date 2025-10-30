@@ -1,5 +1,7 @@
 package com.proyecto.v2.service;
 
+import com.proyecto.v2.dto.response.GetOrganizacion;
+import com.proyecto.v2.mapper.GenericMapper;
 import com.proyecto.v2.model.Organizacion;
 import com.proyecto.v2.model.Rol;
 import com.proyecto.v2.model.TipoOrganizacion;
@@ -8,6 +10,7 @@ import com.proyecto.v2.persistence.OrganizacionDao;
 import com.proyecto.v2.persistence.RolDao;
 import com.proyecto.v2.persistence.TipoOrganizacionDao;
 import com.proyecto.v2.persistence.UsuarioDao;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +19,9 @@ public class OrganizacionService {
     private final OrganizacionDao organizacionDao = new OrganizacionDao();
     private final UsuarioDao  usuarioDao = new UsuarioDao();
     private final TipoOrganizacionDao tipoOrganizacionDao = new TipoOrganizacionDao();
+    private final GenericMapper<GetOrganizacion,Organizacion> genericMapper = new  GenericMapper<>();
     private final RolDao rolDao = new RolDao();
+    private final Logger  log = Logger.getLogger(OrganizacionService.class);
 
 
     public Organizacion save(String nombre, String nombreUsuario, String correo, String clave, String telefono, Long idTipo){
@@ -41,17 +46,21 @@ public class OrganizacionService {
 
 
 
-    public List<Organizacion> findAllOrganizaciones(){
-
-        return organizacionDao.findAll();
+    public List<GetOrganizacion> findAllOrganizaciones(){
+        List<Organizacion> organizaciones =  organizacionDao.findAll();
+        return organizaciones.stream()
+                .map(o -> genericMapper.toDto(o,GetOrganizacion.class))
+                .toList();
     }
 
-    public Optional<Organizacion> findByCorreo(String correo){
-        return  organizacionDao.findByCorreo(correo);
+    public GetOrganizacion findByCorreo(String correo){
+        Organizacion organizacion = organizacionDao.findByCorreo(correo).get();
+        return  genericMapper.toDto(organizacion,GetOrganizacion.class);
     }
 
-    public Optional<Organizacion> findById(Long id){
-        return  organizacionDao.findById(id);
+    public GetOrganizacion findById(Long id){
+        Organizacion organizacion = organizacionDao.findById(id).get();
+        return  genericMapper.toDto(organizacion,GetOrganizacion.class);
     }
 
 

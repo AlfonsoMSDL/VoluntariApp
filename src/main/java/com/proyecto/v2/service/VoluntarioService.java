@@ -1,5 +1,8 @@
 package com.proyecto.v2.service;
 
+import com.proyecto.v2.dto.response.GetOrganizacion;
+import com.proyecto.v2.dto.response.GetVoluntario;
+import com.proyecto.v2.mapper.GenericMapper;
 import com.proyecto.v2.model.Organizacion;
 import com.proyecto.v2.model.Rol;
 import com.proyecto.v2.model.Usuario;
@@ -15,6 +18,7 @@ import java.util.Optional;
 public class VoluntarioService {
     private final VoluntarioDao voluntarioDao = new VoluntarioDao();
     private final UsuarioDao usuarioDao = new UsuarioDao();
+    private final GenericMapper<GetVoluntario,Voluntario> genericMapper = new  GenericMapper<>();
 
     public Voluntario save(String nombre, String apellido , String nombreUsuario, String correo, String clave,String telefono) {
 
@@ -37,9 +41,6 @@ public class VoluntarioService {
     public Optional<Voluntario> findByCorreo(String correo){
         return voluntarioDao.findByCorreo(correo);
     }
-    public Optional<Voluntario> findById(Long id) {
-        return voluntarioDao.findById(id);
-    }
 
     public Voluntario update(Long id, String nombre, String apellido, String correo, String telefono, String clave, String habilidades, String experiencia, String disponibilidad, String areas_interes, String nombreUsuario){
 
@@ -52,6 +53,11 @@ public class VoluntarioService {
         Voluntario voluntarioActualizar = new Voluntario(id,nombre,apellido,correo,telefono,clave,habilidades,experiencia,disponibilidad,areas_interes,nombreUsuario);
 
         return  voluntarioDao.update(voluntarioActualizar);
+    }
+
+    public GetVoluntario findById(Long id){
+        Voluntario voluntarioActual = voluntarioDao.findById(id).get();
+        return genericMapper.toDto(voluntarioActual,GetVoluntario.class);
     }
 
 }

@@ -5,10 +5,11 @@
 <%@ page import="com.proyecto.v2.service.OrganizacionService" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.proyecto.v2.service.TipoOrganizacionService" %>
+<%@ page import="com.proyecto.v2.dto.response.GetUsuario" %>
 
 <%
-    Usuario usuario = (Usuario) session.getAttribute("usuarioLogin");
-    Organizacion organizacion = (new OrganizacionService()).findById(usuario.getId()).get();
+    GetUsuario usuario = (GetUsuario) session.getAttribute("usuarioLogin");
+    Organizacion organizacion = (new OrganizacionService()).findById(usuario.id()).get();
 
 
     List<TipoOrganizacion> tipos = (new TipoOrganizacionService()).findAll();

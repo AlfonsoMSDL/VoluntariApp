@@ -1,5 +1,7 @@
 package com.proyecto.v2.presentation;
 
+import com.proyecto.v2.dto.response.GetProyecto;
+import com.proyecto.v2.mapper.JsonMapper;
 import com.proyecto.v2.model.Proyecto;
 import com.proyecto.v2.service.ProyectoService;
 import jakarta.servlet.ServletException;
@@ -11,11 +13,13 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 
 
 @WebServlet("/proyectos")
 public class ProyectoController extends HttpServlet {
     private final ProyectoService proyectoService = new ProyectoService();
+    private final JsonMapper<GetProyecto> jsonMapper = new JsonMapper();
     Logger log = Logger.getLogger(ProyectoController.class);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
@@ -36,6 +40,29 @@ public class ProyectoController extends HttpServlet {
                 break;
         }
     }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json");
+
+        String accion = req.getParameter("action");
+
+        if(accion == null) accion = "default";
+        switch (accion){
+            case "getProyectos":
+                obtenerProyectosByOrganizacion(req,resp);
+                break;
+            case "getById":
+
+                break;
+
+            default:
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                break;
+        }
+    }
+
+
 
     private void guardarProyecto(HttpServletRequest req, HttpServletResponse resp) throws IOException{
         String nombre = req.getParameter("nombre");
@@ -73,6 +100,18 @@ public class ProyectoController extends HttpServlet {
             resp.getWriter().println("{\"mensaje\":\"Actualizado correctamente\"}");
         }else {
             resp.getWriter().println("{\"mensaje\":\"Hubo un error actualizando\"}");
+        }
+    }
+
+    private void obtenerProyectosByOrganizacion(HttpServletRequest req, HttpServletResponse resp) {
+        Long id = Long.parseLong(req.getParameter("idOrganizacion"));
+        List<GetProyecto> proyectos = proyectoService.findAllProyectosByOrganizacion(id);
+        String json = jsonMapper.toJson(proyectos);
+
+        try {
+            resp.getWriter().println(json);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

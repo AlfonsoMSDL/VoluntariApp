@@ -1,5 +1,7 @@
 package com.proyecto.v2.service;
 
+import com.proyecto.v2.dto.response.GetUsuario;
+import com.proyecto.v2.mapper.GenericMapper;
 import com.proyecto.v2.persistence.UsuarioDao;
 import com.proyecto.v2.presentation.VoluntarioController;
 import com.proyecto.v2.model.Organizacion;
@@ -11,18 +13,21 @@ import java.util.Optional;
 
 public class AuthService {
     private final UsuarioDao usuarioDAo;
+    private GenericMapper<GetUsuario,Usuario> mapperUsuario;
 
     Logger log = Logger.getLogger(VoluntarioController.class);
 
     public AuthService() {
         this.usuarioDAo = new UsuarioDao();
+        this.mapperUsuario = new GenericMapper<>();
     }
-    public Usuario Login (String correo, String clave){
+    public GetUsuario Login (String correo, String clave){
 
         Usuario usuario = usuarioDAo.findByEmail(correo).get();
         if(usuario != null){
             if(clave.equals(usuario.getClave())){
-                return usuario;
+
+                return mapperUsuario.toDto(usuario, GetUsuario.class);
             }
         }
         return null;

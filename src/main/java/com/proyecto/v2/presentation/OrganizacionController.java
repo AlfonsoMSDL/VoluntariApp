@@ -1,7 +1,12 @@
 package com.proyecto.v2.presentation;
 
+import com.proyecto.v2.dto.response.GetOrganizacion;
+import com.proyecto.v2.dto.response.GetTipoOrganizacion;
+import com.proyecto.v2.mapper.JsonMapper;
 import com.proyecto.v2.model.Organizacion;
+import com.proyecto.v2.model.TipoOrganizacion;
 import com.proyecto.v2.service.OrganizacionService;
+import com.proyecto.v2.service.TipoOrganizacionService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,6 +20,10 @@ import java.io.IOException;
 @WebServlet("/organizaciones")
 public class OrganizacionController extends HttpServlet {
     private final OrganizacionService organizacionService = new OrganizacionService();
+    private final JsonMapper<GetTipoOrganizacion> jsonMapperTipoOrg = new JsonMapper<>();
+    private final JsonMapper<GetOrganizacion> jsonMapperOrg = new JsonMapper<>();
+    private final TipoOrganizacionService tipoOrganizacionService = new TipoOrganizacionService();
+    private static final Logger LOGGER = Logger.getLogger(OrganizacionController.class);
 
     Logger log = Logger.getLogger(OrganizacionController.class);
     @Override
@@ -39,6 +48,28 @@ public class OrganizacionController extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json");
+
+        String accion = req.getParameter("action");
+
+        if(accion == null) accion = "default";
+        switch (accion){
+            case "getTipos":
+                obtenerTiposOrganizacion(req,resp);
+                break;
+            case "getById":
+                obtenerOrganizacionPorId(req,resp);
+                break;
+
+            default:
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                break;
+        }
+    }
+
+
 
     private void guardarOrganizacion(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String nombre = req.getParameter("nombreOrganizacion");
@@ -54,7 +85,7 @@ public class OrganizacionController extends HttpServlet {
         if(resultado != null){
 
             log.info("Organizacion guardada correctamente\n");
-            log.info(organizacionService.findAllOrganizaciones().toString());
+
             resp.getWriter().println(resultado);
         }else{
             resp.getWriter().println("{\"error\": \"Acción no válida\"}");
@@ -83,7 +114,30 @@ public class OrganizacionController extends HttpServlet {
         }
     }
 
+    private void obtenerTiposOrganizacion(HttpServletRequest req, HttpServletResponse resp) {
+        LOGGER.info("Iniciando obtenerTiposOrganizacion");
+        String listaJson = jsonMapperTipoOrg.toJson(tipoOrganizacionService.findAll());
+        try {
+            resp.getWriter().println(listaJson);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    private void obtenerOrganizacionPorId(HttpServletRequest req, HttpServletResponse resp) {
+        Long idOrganizacion = Long.parseLong(req.getParameter("idOrganizacion"));
+        GetOrganizacion organizacionDto = organizacionService.findById(idOrganizacion);
+
+        String organizacionJson = jsonMapperOrg.toJson(organizacionDto);
+
+        try {
+            resp.getWriter().println(organizacionJson);
+        } catch (IOException e) {}
+
+
+
+
+    }
 
 
 }

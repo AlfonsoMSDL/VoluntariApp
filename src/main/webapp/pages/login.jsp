@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="login-container">
-    <form class="form-section" action="http://localhost:8181/voluntariApp/auth" method="post">
+    <form class="form-section" onsubmit="procesarLogin(event)">
         <h1>Bienvenido</h1>
 
 
@@ -40,5 +40,6 @@
     </div>
 </div>
 
+<script src="../js/login.js"></script>
 </body>
 </html>
